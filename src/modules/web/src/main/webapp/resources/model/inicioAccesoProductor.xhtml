@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+	<html xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:h="http://java.sun.com/jsf/html"
+		xmlns:composite="http://java.sun.com/jsf/composite"
+		xmlns:p="http://java.sun.com/jsf/html">
+
+		<!-- INTERFACE -->
+		<composite:interface>
+			<composite:attribute name="id"></composite:attribute>
+		</composite:interface>
+
+		<!-- IMPLEMENTATION -->
+		<composite:implementation>
+			
+				<p:panelGrid columns="2" layout="grid" id="menuInicio" styleClass="menuInicio">
+					<h:commandLink
+						action="#{productorController.informacionAdicionalAction}"
+						update="#{cc.attrs.formId}" styleClass="button-actividad">
+						<p:graphicImage name="botonRedondo.png"
+							library="images" />
+						Registro Integrado de la Cadena Agropecuaria (RICA)
+					</h:commandLink>
+					<br />
+					<br />
+					<h:commandLink
+						action="#{productorController.mostrarPrincipal()}" update="#{cc.attrs.formId}"
+						styleClass="button-actividad" rendered="#{sessionBean.usuarioExterno}">
+						<p:graphicImage name="botonRedondo.png"
+							library="images" />
+						Régimen de Información Agrícola (RIA)
+					</h:commandLink>
+				</p:panelGrid>
+		
+		</composite:implementation>
+
+</html>

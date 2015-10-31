@@ -1,0 +1,120 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:model="http://java.sun.com/jsf/composite/model"
+	template="/WEB-INF/templates/layout.xhtml">
+
+	<ui:define name="title">
+		My Personal Cashflow
+	</ui:define>
+
+	<ui:define name="content">
+		<h1>My Personal Cashflow</h1>
+		<h:form id="cashFlowForm">
+			<p:panel header="Listado" id="listado">
+				<p:panelGrid id="panelLotesInfo" columns="1">
+					<h3>Frozen Rows</h3>
+					<p:dataTable var="car" value="#{dtScrollView.cars4}" scrollable="true" scrollHeight="150" frozenColumns="1" frozenRows="1">
+						<p:column headerText="Id" footerText="Id">
+							<h:outputText value="#{car.id}" />
+						</p:column>
+						<p:column headerText="Year" footerText="Year">
+							<h:outputText value="#{car.year}">
+								<f:convertNumber type="currency" currencySymbol="$" />
+							</h:outputText>
+						</p:column>
+						<p:column headerText="Brand" footerText="Brand">
+							<h:outputText value="#{car.brand}" />
+						</p:column>
+						<p:column headerText="Color" footerText="Color">
+							<h:outputText value="#{car.color}" />
+						</p:column>
+					</p:dataTable>
+				</p:panelGrid>
+			</p:panel>
+
+			<p:panel header="Listado" id="listado2">
+			<p:panelGrid id="panelLotesInfo2" columns="1">
+
+			<h3>Horizontal and Vertical</h3>
+			<p:dataTable var="car" value="#{dtScrollView.cars3}" scrollable="true" scrollWidth="20%" >
+				<p:column headerText="Id" footerText="Id" width="200">
+					<h:outputText value="#{car.id}" />
+				</p:column>
+				<p:column headerText="Year" footerText="Year" width="200">
+					<h:outputText value="#{car.year}">
+						<f:convertNumber type="currency" currencySymbol="$" />
+					</h:outputText>
+				</p:column>
+				<p:column headerText="Brand" footerText="Brand" width="200">
+					<h:outputText value="#{car.brand}" />
+				</p:column>
+				<p:column headerText="Color" footerText="Color" width="200">
+					<h:outputText value="#{car.color}" />
+				</p:column>
+				<p:column headerText="Id" footerText="Id" width="200">
+					<h:outputText value="#{car.id}" />
+				</p:column>
+				<p:column headerText="Year" footerText="Year" width="200">
+					<h:outputText value="#{car.year}">
+						<f:convertNumber type="currency" currencySymbol="$" />
+					</h:outputText>
+				</p:column>
+				<p:column headerText="Brand" footerText="Brand" width="200">
+					<h:outputText value="#{car.brand}" />
+				</p:column>
+				<p:column headerText="Color" footerText="Color" width="200">
+					<h:outputText value="#{car.color}" />
+				</p:column>
+				<p:column headerText="Id" footerText="Id" width="200">
+					<h:outputText value="#{car.id}" />
+				</p:column>
+				<p:column headerText="Year" footerText="Year" width="200">
+					<h:outputText value="#{car.year}">
+						<f:convertNumber type="currency" currencySymbol="$" />
+					</h:outputText>
+				</p:column>
+				<p:column headerText="Brand" footerText="Brand" width="200">
+					<h:outputText value="#{car.brand}" />
+				</p:column>
+				<p:column headerText="Color" footerText="Color" width="200">
+					<h:outputText value="#{car.color}" />
+				</p:column>
+				<p:column headerText="Id" footerText="Id" width="200">
+					<h:outputText value="#{car.id}" />
+				</p:column>
+				<p:column headerText="Year" footerText="Year" width="200">
+					<h:outputText value="#{car.year}" />
+				</p:column>
+				<p:column headerText="Brand" footerText="Brand" width="200">
+					<h:outputText value="#{car.year}">
+						<f:convertNumber type="currency" currencySymbol="$" />
+					</h:outputText>
+				</p:column>
+				<p:column headerText="Color" footerText="Color" width="200">
+					<h:outputText value="#{car.color}" />
+				</p:column>
+				<p:column headerText="Id" footerText="Id" width="200">
+					<h:outputText value="#{car.id}" />
+				</p:column>
+				<p:column headerText="Year" footerText="Year" width="200">
+					<h:outputText value="#{car.year}">
+						<f:convertNumber type="currency" currencySymbol="$" />
+					</h:outputText>
+				</p:column>
+				<p:column headerText="Brand" footerText="Brand" width="200">
+					<h:outputText value="#{car.brand}" />
+				</p:column>
+				<p:column headerText="Color" footerText="Color" width="200">
+					<h:outputText value="#{car.color}" />
+				</p:column>
+			</p:dataTable>
+			</p:panelGrid>
+			</p:panel>
+
+
+	</h:form>
+	</ui:define>
+</ui:composition>

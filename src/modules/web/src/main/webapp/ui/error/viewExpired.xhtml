@@ -1,0 +1,20 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/WEB-INF/templates/layout.xhtml">
+
+	<ui:remove>
+	<!-- TODO: Crear estilos para las páginas de error -->
+	</ui:remove>
+	<ui:define name="content">
+		<h:form>
+			<h1 style="font-size: 2em;">Ha caducado la sesión</h1>
+			<p style="font-size: 1.2em; margin-top: 1em; text-align: center;">
+				Superó el tiempo máximo de espera del sistema. Por favor, recargue la página.
+			</p>
+			<a id="recargar" href="#">Recargar la página</a>
+			<script type="text/javascript">document.getElementById("recargar").href=document.referrer;</script>
+		</h:form>
+	</ui:define>
+</ui:composition>

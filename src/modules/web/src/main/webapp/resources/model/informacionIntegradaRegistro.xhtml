@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:model="http://java.sun.com/jsf/composite/model">
+<composite:interface>
+    <composite:attribute name="nombreOrganismo" />
+</composite:interface>
+
+<composite:implementation>
+	<p:panel header="Información Integrada por registro" id="#{cc.id}">
+	    <p:accordionPanel multiple="true" activeIndex="null" id="infoOrganizacion"> 
+	    
+	        <p:tab title="Información SENASA">
+ 	         <model:informacionOrganismoSENASA id="panelInformacionSENASA" informacionOrganismoSenasa="#{informacionOrganismosController.infoOrganismoSenasa}" /> 
+ 	        </p:tab>
+	        <p:tab  title="Información RUCA">
+	          <model:informacionOrganismoRUCA id="panelInformacionMGAyP" informacionMagyp="#{informacionOrganismosController.infoOrganismoRuca}"/>
+	        </p:tab>        
+	        <p:tab title="Información INV">
+	          <model:informacionOrganismoINV id="panelInformacionINV" informacionOrganismo="#{informacionOrganismosController.infoOrganismoINV}" />
+	        </p:tab>
+ 	        <p:tab title="Información INASE">
+ 	         <model:informacionOrganismoINASE id="panelInformacionINASE" informacionOrganismoInase="#{informacionOrganismosController.infoOrganismoInase}"></model:informacionOrganismoINASE>
+ 	        </p:tab>
+ 	        
+ 	        <p:tab title="Información TABACO">
+ 	         <model:informacionOrganismoTABACO id="panelInformacionTABACO" informacionOrganismoTabaco="#{informacionOrganismosController.infoOrganismoTabaco}"/>
+ 	        </p:tab>
+ 	        
+	    </p:accordionPanel>
+	</p:panel>
+</composite:implementation>
+</html>

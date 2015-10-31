@@ -1,0 +1,24 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+      xmlns:composite="http://java.sun.com/jsf/composite">
+<composite:interface>
+    <composite:facet name="header" />
+    <composite:attribute name="headerText" />
+    <composite:attribute name="styleClass" default="form-style1" />
+</composite:interface>
+
+<composite:implementation>
+    <div class="#{cc.attrs.styleClass}">
+        <h:panelGroup rendered="#{not empty cc.facets.header or not empty cc.attrs.headerText}">
+            <div>
+                <composite:renderFacet name="header" />
+                <h:outputText value="#{cc.attrs.headerText}" rendered="#{empty cc.facets.header}" />
+            </div>
+        </h:panelGroup>
+        <composite:insertChildren />
+    </div>
+</composite:implementation>
+</html>

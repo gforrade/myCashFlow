@@ -1,0 +1,92 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:f="http://java.sun.com/jsf/core"
+		xmlns:h="http://java.sun.com/jsf/html"
+		xmlns:ui="http://java.sun.com/jsf/facelets"
+		xmlns:p="http://primefaces.org/ui"
+		xmlns:form="http://java.sun.com/jsf/composite/form"
+		xmlns:model="http://java.sun.com/jsf/composite/model"
+		template="/WEB-INF/templates/layout.xhtml"
+		xmlns:composite="http://java.sun.com/jsf/composite">
+
+		<composite:interface>
+		   <composite:attribute name="actividad" type="ar.com.datastar.magyp.rica.model.entities.Actividad" />
+		   <composite:attribute name="origenSemilla" type="ar.com.datastar.magyp.rica.model.entities.OrigenSemilla" />
+		   <composite:attribute name="semilla" type="ar.com.datastar.magyp.rica.model.entities.Semilla" />
+		   
+		   <composite:attribute name="formId"  />
+		</composite:interface>
+
+		<composite:implementation>
+		<p:outputPanel autoUpdate="true" >
+			<br /><br />
+			<p:panel header="Actividad" id="#{cc.id}">
+			   <p:panelGrid columns="2" layout="grid" styleClass="panelActividad">
+			    <h:outputLabel for="actividad" value="Actividad" />
+				 <p:inputText styleClass="pf-input width-100" id="actividad" label="Actividad" value="#{cc.attrs.actividad.tipo}" readonly="true"/>
+			     <h:outputLabel for="especie" value="Especie" />
+				 <p:inputText styleClass="pf-input width-100" id="especie" label="Especie" value="#{cc.attrs.semilla.especie.nombre}" readonly="true"/>
+				</p:panelGrid>			     
+			   <br />
+			   <br />
+			   <h:outputLabel value="Origen de Semilla" styleClass="separador" />     
+			   <br />
+			   <br />
+			   <p:dataTable value="#{actividadController.semilla}" var="semilla" paginator="false">					
+					<p:column headerText="Variedad" >
+					#{semilla.variedad.cultivar}</p:column>
+					<p:column headerText="Cantidad en Kg">
+					#{semilla.cantidadKg}</p:column>
+					<p:column headerText="Rinde Esperado Kg/ha" width="20%">
+					#{semilla.rindeEsperado}
+					</p:column>										
+			   </p:dataTable>
+			   <br/>			   
+			   <p:panelGrid>			        
+			  	    <h:selectOneRadio value="#{actividadController.tipoOrigen}" styleClass="selectTipoOrigen">
+			  	      <f:selectItem itemLabel="Fiscalizada Adquirida" itemValue="Fiscalizada"  />
+					  <f:selectItem itemLabel="Uso Propio Controlada" itemValue="Propio"  />	
+				      <p:ajax process="@form" update="panelSemilla, panelSemillaFiscalizada, panelSemillaControlada" />
+			        </h:selectOneRadio>	
+			   </p:panelGrid>
+			   <br />
+			   <br />
+			   <p:outputPanel id="panelSemilla">			   			
+			     <p:panelGrid id="panelSemillaFiscalizada" columns="2" layout="grid" rendered="#{actividadController.tipoOrigen eq 'Fiscalizada'}"  styleClass="tipoOrigenFiscalizada">		
+			   		<h:outputLabel for="semillaFiscalizadaCuitVendedor" value="Cuit Vendedor"  />		  		
+					<p:inputText id="semillaFiscalizadaCuitVendedor" value="#{actividadController.fiscalizadaAdquirida.cuitVendedor}">
+						<p:ajax update="semillaFiscalizadaVendedor" listener="#{actividadController.validaCuitByRest}" process="@form"></p:ajax>
+					</p:inputText>
+					<h:outputLabel for="semillaFiscalizadaVendedor" value="Apellido Nombre / Razón Social" />		  		
+					<p:inputText id="semillaFiscalizadaVendedor" value="#{actividadController.fiscalizadaAdquirida.nombre}" styleClass="pf-input width-100" readonly="true"/>
+					<h:outputLabel for="semillaFiscalizadaCantAdKg" value="Cantidad adquirida (kg)"  />		  		
+					<p:inputText id="semillaFiscalizadaCantAdKg" value="#{actividadController.fiscalizadaAdquirida.cantidadAdquirida}" onkeypress="validateNumericInput(event, this.text)" />
+					<h:outputLabel for="semillaFiscalizadaFechaFactura" value="Fecha factura"  />		  		
+					<p:calendar id="semillaFiscalizadaFechaFactura" value="#{actividadController.fiscalizadaAdquirida.fechaFactura}" pattern="dd/MM/yy"/>
+					<h:outputLabel for="semillaFiscalizadaFacturaNumero" value="Factura Nº"  />							  		
+					<p:inputText id="semillaFiscalizadaFacturaNumero" value="#{actividadController.fiscalizadaAdquirida.numeroFactura}"/>
+					<h:outputLabel for="semillaFiscalizadaCai" value="C.A.I / C.A.E / CF Nro"  />							  		
+					<p:inputText id="semillaFiscalizadaCai" value="#{actividadController.fiscalizadaAdquirida.cai}" />
+					<h:outputLabel for="semillaFiscalizadaImporte" value="Importe Final"  />		  		
+					<p:inputText id="semillaFiscalizadaImporte" value="#{actividadController.fiscalizadaAdquirida.importeFinal}" onkeypress="validateNumericInput(event, this.text)" />
+					<br/><br/>		
+				</p:panelGrid>			
+								  	 
+				<p:panelGrid id="panelSemillaControlada" columns="2" layout="grid" rendered="#{actividadController.tipoOrigen eq 'Propio'}" styleClass="tipoOrigenPropio">		
+			   		<h:outputLabel for="panelSemillaControladaRotulo" value="Nro Rotulo"  />		  		
+					<p:inputText id="panelSemillaControladaRotulo" value="#{actividadController.usoPropioControlada.numeroRotulo}" />
+					<h:outputLabel for="panelSemillaControladaCantidad" value="Cant. disponible para futuras declaraciónes de siembra (kg)"  />							  		
+					<p:inputText id="panelSemillaControladaCantidad" value="#{actividadController.usoPropioControlada.cantidadDisponible}" onkeypress="validateNumericInput(event, this.text)" />
+					<br/><br/>
+				 </p:panelGrid>	
+				 <b/>				 
+				 <p:commandButton value="Guardar"  action="#{actividadController.saveOrigen}" update="#{cc.attrs.formId}"/>
+				 <b/>
+				 <p:commandButton value="Eliminar" action="#{actividadController.removeOrigenSemilla()}" actionListener="#{productorController.goEditLote()}"  update="#{cc.attrs.formId}" rendered="#{actividadController.origenSemilla.id ne null}"/>
+				 <b/>
+				 <p:commandButton value="Volver" immediate="true" actionListener="#{actividadController.backActividad}" action="#{productorController.goEditLote}" update="#{cc.attrs.formId}"/>
+				 <b/>			   			 			 
+				</p:outputPanel>		
+			</p:panel>
+		</p:outputPanel>
+		</composite:implementation>
+</ui:composition>

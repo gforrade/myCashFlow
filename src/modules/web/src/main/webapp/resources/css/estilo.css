@@ -1,0 +1,36 @@
+BODY{ 
+	font:.88em Verdana, Geneva, Arial, Helvetica, sans-serif;
+	
+	/*margin-top: 5px;
+	margin-bottom: 5px;*/
+}
+
+/*TD{
+	font:.88em  Verdana, Geneva, Arial, Helvetica, sans-serif;
+	text-align: left;
+	margin-top: 5px;
+	margin-bottom: 5px;
+}*/
+#tablamaqueta {
+	font:.88em  Verdana, Geneva, Arial, Helvetica, sans-serif;
+	width: 100%;
+	text-align: left;
+}
+
+
+.banner1 {padding:5px;
+		margin:0 auto 0 auto;}
+		
+.banner2 {padding:5px 5px 5px 10px;
+		margin:0 auto 0 auto;}
+
+a:link { text-decoration:none;}
+
+a:visited { text-decoration:none;}
+
+a:hover { text-decoration:none;}
+
+#navegacionsec ul { float: right; width: auto; margin-right: 35px; }
+#navegacionsec ul li .ui-icon { float: left; }
+
+.importeTotal{ text-transform: uppercase;  padding: 5px 0;  background: #89F376!important;  color: #232527;  text-align: left;  font: inherit;  font-weight: bold!important;  border: none;}

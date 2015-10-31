@@ -1,0 +1,38 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:model="http://java.sun.com/jsf/composite/model"
+	template="/WEB-INF/templates/layout.xhtml">
+
+	<ui:define name="title">
+		MAGyP - Agricultura - #{msgs.ri_title}
+	</ui:define>
+	<ui:define name="content">
+	<h:form id="loteForm">
+        <h1 style="text-align:center">ABM de Campañas</h1>
+             <br />
+             <br />
+	   <h:panelGrid columns="2" id="grid">    
+     
+                <h:outputLabel value="Descripción:" styleClass="pf-input width-100"></h:outputLabel>
+                <p:inputText id="inDescripcion" value="#{campaniaController.campania.descripcion}" />
+
+               <h:outputLabel value="Fecha Desde:"></h:outputLabel>          
+               <p:calendar id="inFechaDesde" styleClass="pf-input width-100" value="#{campaniaController.campania.fechaDesde}" >
+               <f:convertDateTime pattern="dd/MM/yy" /> 
+			   </p:calendar>
+                
+                <h:outputLabel value="Fecha Hasta:"></h:outputLabel>
+               <p:calendar id="inFechaHasta" styleClass="pf-input width-100" value="#{campaniaController.campania.fechaHasta}" >
+               <f:convertDateTime pattern="dd/MM/yy" />  
+			   </p:calendar>
+                
+                <p:commandButton value="Guardar" action="#{campaniaController.save}" />
+
+      </h:panelGrid>
+			
+    </h:form>
+	</ui:define>
+</ui:composition>

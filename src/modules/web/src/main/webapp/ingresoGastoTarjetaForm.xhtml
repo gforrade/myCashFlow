@@ -1,0 +1,70 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:p="http://primefaces.org/ui"
+				xmlns:model="http://java.sun.com/jsf/composite/model"
+				template="/WEB-INF/templates/layout.xhtml">
+
+	<ui:define name="title">
+		My Personal Cashflow
+	</ui:define>
+
+	<ui:define name="content">
+		<h1>Ingreso Nuevo Gasto</h1>
+		<h:form id="formGasto">
+
+			<p:panel id="panelIngresoGastoTarjeta" header="Datos Gasto">
+				<p:messages id="msgs" />
+				<p:panelGrid columns="3" layout="grid" cellpadding="5" styleClass="panelActividad">
+					<h:outputLabel for="centroCosto" value="Centro Costo" />
+					<p:selectOneMenu styleClass="pf-input width-10" value="#{gastoController.centroCostoId}" required="true" id="centroCosto">
+						<f:selectItems value="#{gastoController.centroCostos}" var="centroCosto" itemLabel="#{centroCosto.label}" itemValue="#{centroCosto.value}"/>
+					</p:selectOneMenu>
+					<p:message for="centroCosto" display="icon" />
+
+					<h:outputLabel for="tarjetaCredito" value="Tarjeta Credito" />
+					<p:selectOneMenu styleClass="pf-input width-10" value="#{gastoController.tarjetaCreditoId}" required="true" id="tarjetaCredito">
+						<f:selectItems value="#{gastoController.tarjetasCredito}" var="tarjetaCredito" itemLabel="#{tarjetaCredito.label}" itemValue="#{tarjetaCredito.value}"/>
+					</p:selectOneMenu>
+					<p:message for="tarjetaCredito" display="icon" />
+
+					<h:outputLabel for="fechaCompra" value="Fecha Compra" />
+					<p:calendar  id="fechaCompra" styleClass="pf-input width-40"
+								 value="#{gastoController.fechaCompra}"
+								 pattern="dd/MM/yyyy">
+						<f:convertDateTime pattern="dd/MM/yyyy"/>
+					</p:calendar>
+					<p:message for="fechaCompra" display="icon" />
+
+					<h:outputLabel for="cantidadCuotas" value="Cantidad Cuotas" />
+					<p:selectOneMenu styleClass="pf-input width-10" value="#{gastoController.cantidadCuotas}" required="true" id="cantidadCuotas">
+						<f:selectItems value="#{gastoController.meses}" var="mes" itemLabel="#{mes.label}" itemValue="#{mes.value}"/>
+					</p:selectOneMenu>
+					<p:message for="cantidadCuotas" display="icon" />
+
+					<h:outputLabel for="concepto" value="Concepto" />
+					<p:inputText styleClass="pf-input width-40" id="concepto" required="true" value="#{gastoController.concepto}"/>
+					<p:message for="concepto" display="icon" />
+
+
+					<p:outputLabel value="Importe" for="importeGasto" />
+					<p:inputText styleClass="pf-input width-40" id="importeGasto" required="true" value="#{gastoController.importe}">
+						<f:convertNumber type="currency" currencySymbol="$" />
+					</p:inputText>
+					<p:message for="importeGasto" display="icon" />
+
+				</p:panelGrid>
+				<br />
+				<br />
+				<p:commandButton value="Guardar" update="panelIngresoGastoTarjeta" action="#{gastoController.agregarGastoTarjeta}"/>
+				<p:commandButton value="Limpiar" update="panelIngresoGastoTarjeta" process="@this"  >
+					<p:resetInput target="panelIngresoGastoTarjeta" />
+				</p:commandButton>
+
+				<b/>
+			</p:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>
+

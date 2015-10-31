@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<weblogic-application xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.oracle.com/weblogic/weblogic-application http://xmlns.oracle.com/weblogic/weblogic-application/1.1/weblogic-application.xsd"
+	xmlns="http://xmlns.oracle.com/weblogic/weblogic-application">
+	<classloader-structure>
+		<module-ref>
+			<!-- module-uri: tiene que coincidir el bundleFileName del modulo del
+				maven-ear-plugin -->
+			<module-uri>mycashflow-web-1.0.0.war</module-uri>
+		</module-ref>
+		<module-ref>
+			<!-- module-uri: tiene que coincidir el bundleFileName del modulo del
+				maven-ear-plugin -->
+			<module-uri>business-1.0.0.jar</module-uri>
+		</module-ref>
+	</classloader-structure>
+</weblogic-application>

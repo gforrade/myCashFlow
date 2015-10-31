@@ -1,0 +1,97 @@
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:form="http://java.sun.com/jsf/composite/form"
+	xmlns:model="http://java.sun.com/jsf/composite/model"
+	template="/WEB-INF/templates/layout.xhtml"
+    xmlns:composite="http://java.sun.com/jsf/composite">
+
+    <composite:interface>
+		<composite:attribute name="establecimiento" type="ar.com.datastar.magyp.rica.model.entities.Establecimiento" />
+		<composite:attribute name="formId"/>
+	</composite:interface>
+
+	<composite:implementation>
+			<p:panel header="Datos del establecimiento" id="#{cc.id}" styleClass="panelEstablecimiento">
+				<p:panelGrid columns="4" layout="grid">
+					<h:outputLabel for="inEstablecimientoRazonSocial" value="Nombre / Identificación" />
+					<p:inputText readonly="true" styleClass="pf-input width-100" id="inEstablecimientoRazonSocial" label="Apellido y nombre / Razón social" value="#{cc.attrs.establecimiento.nombre}" />
+					<h:outputLabel for="inEstablecimientoCuit" value="CUIT N°" styleClass="text-rigth" />
+					<p:inputText readonly="true" styleClass="pf-input width-100" id="inEstablecimientoCuit" label="Cuit" value="#{cc.attrs.establecimiento.cuit}" />
+				</p:panelGrid>
+				<p:panelGrid columns="2" layout="grid">
+					<h:outputLabel for="inEstablecimientoDomicilioComercial" value="Domicilio comercial" />
+					<p:inputText readonly="true" styleClass="pf-input width-100" id="inEstablecimientoDomicilioComercial" label="Domicilio comercial" value="#{cc.attrs.establecimiento.direccionComercial}" />
+				</p:panelGrid>
+				<p:panelGrid columns="6" layout="grid">
+					<h:outputLabel value="Código Identificación" />
+					<h:outputLabel for="codRI" value="RI" styleClass="labelCodigos" rendered="false"/>					
+					<h:outputLabel for="codRENSPA" value="RENSPA" styleClass="labelCodigos" />
+					<h:outputLabel for="codINV" value="INV" styleClass="labelCodigos" />
+					<h:outputLabel for="codINASE" value="INASE" styleClass="labelCodigos" />
+					<h:outputLabel for="codRUCA" value="RUCA" styleClass="labelCodigos" />
+					<h:outputLabel for="codTABACO" value="TABACO" styleClass="labelCodigos" />							
+					<h:outputLabel value="" />					
+					<p:inputText readonly="true" id="codRI" styleClass="pf-input width-100" value="#{cc.attrs.establecimiento.codigoIdentificacion.ri}"  rendered="false"/>					
+					<p:inputText readonly="true" id="codRENSPA" styleClass="pf-input width-100" value="#{cc.attrs.establecimiento.codigoIdentificacion.senasa}" />
+					<p:inputText readonly="true" id="codINV" styleClass="pf-input width-100" value="#{cc.attrs.establecimiento.codigoIdentificacion.inv}" />
+					<p:inputText readonly="true" id="codINASE" styleClass="pf-input width-100" value="#{cc.attrs.establecimiento.codigoIdentificacion.inase}" />
+					<p:inputText readonly="true" id="codRUCA" styleClass="pf-input width-100" value="#{cc.attrs.establecimiento.codigoIdentificacion.ruca}" />							
+					<p:inputText readonly="true" id="codTABACO" styleClass="pf-input width-100" value="#{cc.attrs.establecimiento.codigoIdentificacion.tabaco}" />
+				</p:panelGrid>
+				<p:panelGrid columns="3" layout="grid">
+					<h:outputLabel for="inEstablecimientoCorreoElectronico"	value="Correo electrónico" />
+					<p:inputText readonly="true" styleClass="pf-input width-100" id="inEstablecimientoCorreoElectronico" label="Correo electrónico"	value="#{cc.attrs.establecimiento.email}" />
+					<h:outputLabel value="" />
+					<h:outputLabel for="inEstablecimientoTelefonoFijo" value="Télefono Fijo" />
+					<p:inputText readonly="true" styleClass="pf-input width-100" id="inEstablecimientoTelefonoFijo" label="Télefono Fijo" value="#{cc.attrs.establecimiento.telefono}" />
+					<h:outputLabel value="" />
+					<h:outputLabel for="inEstablecimientoTelefonoMovil" value="Télefono Movil" />
+					<p:inputText readonly="true" styleClass="pf-input width-100" id="inEstablecimientoTelefonoMovil" label="Télefono Movil" value="#{cc.attrs.establecimiento.telefonoCelular}" />
+					<h:outputLabel value="" />
+					<h:outputLabel for="inEstablecimientoSuperficie" value="Superficie" />
+					<p:inputText readonly="true" styleClass="pf-input width-100" id="inEstablecimientoSuperficie" label="Superficie" value="#{cc.attrs.establecimiento.superficieTotal}" />
+					<h:outputLabel value="" />
+				</p:panelGrid>
+				<br/>
+				<p:panel header="Establecimiento" id="panelEstablecimientoGeorreferenciacion">
+					<p:dataTable
+							value="#{cc.attrs.establecimiento}"
+							var="establecimiento">
+						<p:columnGroup type="header">
+							<p:row>
+								<p:column rowspan="2" headerText="Código de Identificación" rendered="false"/>
+								<p:column rowspan="2" headerText="Nombre del Establecimiento" />
+								<p:column colspan="2" headerText="Georreferenciación" />
+							</p:row>
+							<p:row>
+								<p:column headerText="Latitud" />
+								<p:column headerText="Longitud" />
+							</p:row>
+						</p:columnGroup>
+						<p:column rendered="false">
+							#{establecimiento.codigoIdentificacion.ri}
+						</p:column>
+						<p:column>
+							#{establecimiento.nombre}
+						</p:column>
+						<p:column colspan="2">
+							<p:dataTable
+									value="#{cc.attrs.establecimiento}"
+									var="establecimiento">
+								<p:column>
+									#{establecimiento.geoReferencia.latitud}
+								</p:column>
+								<p:column>
+									#{establecimiento.geoReferencia.longitud}
+								</p:column>
+							</p:dataTable>
+						</p:column>
+					</p:dataTable>
+				</p:panel>
+			</p:panel>
+	</composite:implementation>
+</ui:composition>

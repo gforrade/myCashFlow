@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration PUBLIC "-//LOGGER" "log4j.dtd">
+<!-- Desa Enviroment -->
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+    <!-- Appenders -->
+    <appender name="console" class="org.apache.log4j.ConsoleAppender">
+        <param name="Target" value="System.out" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%-5p: %c - %m%n" />
+        </layout>
+    </appender>
+
+
+
+    <logger name="co.com.oracle.avianca.crmod.satellite">
+        <level value="info,debug,error" />
+    </logger>
+
+    <logger name="javax.persistence">
+        <level value="info,debug,error" />
+    </logger>
+
+
+    <!-- Root Logger -->
+    <root>
+        <priority value="debug" />
+        <appender-ref ref="console" />
+    </root>
+
+</log4j:configuration>

@@ -1,0 +1,106 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:form="http://java.sun.com/jsf/composite/form"
+    xmlns:model="http://java.sun.com/jsf/composite/model"
+    template="/WEB-INF/templates/layout.xhtml"
+    xmlns:composite="http://java.sun.com/jsf/composite">
+
+    <composite:interface>
+        <composite:attribute name="establecimientos" type="java.util.List" />
+        <composite:attribute name="formId"  />
+        <composite:attribute name="verEstablecimientoButtonAction" method-signature="java.lang.String action()" />
+        <composite:attribute name="agregarLoteButtonAction" method-signature="java.lang.String action()" />
+        <composite:attribute name="viewMode" />
+      
+    </composite:interface>
+
+    <composite:implementation>
+    		<p:dialog id="modal_agrupar" header="Agrupar Establecimientos" widgetVar="dlg_agrupar_establecimientos" modal="true" width="50%" >
+    			<h:inputHidden id="establecimientoID" value="#{establecimientoController.groupId}" />	
+    			<p:scrollPanel mode="native" style="max-height:400px">
+			    <h:outputText value="Grupos disponibles" />
+			     <p:dataTable value="#{establecimientoController.grupos}" var="grupo">
+			     	 <p:column headerText="Grupo" width="15%">
+			     	   <input type="radio" name="grupoId" id="#{grupo.id}" value="grupo.id" onclick="setGroupId(this)" />
+                    	#{grupo.id}
+                     </p:column>
+                     <p:column headerText="Descripcion" width="85%">
+                    	#{grupo.descripcion}
+                     </p:column>
+			     </p:dataTable>
+			     </p:scrollPanel>
+			     <br/><br/>
+			     <p:commandButton id="agrupar_aceptar" value="Aceptar" action="#{establecimientoController.aceptarAgrupar}" update="tablaEstablecimientos" />
+                 <p:commandButton id="agrupar_cancelar" value="Cancelar" oncomplete="PF('dlg_agrupar_establecimientos').hide();" process="@this"  />                 
+			</p:dialog>
+			<p:dialog id="modal_actividad_establecimiento" header="Actividades del Establecimiento" widgetVar="dlg_actividad_establecimientos" modal="true" width="50%" >    				
+    			 <p:scrollPanel mode="native" style="max-height:400px">	
+	    			 <p:dataTable value="#{establecimientoController.actividadesEstablecimiento}" var="actividad">
+				     	 <p:column headerText="Código" width="15%">
+				     	   #{actividad.codigo}
+	                     </p:column>
+	                     <p:column headerText="Actividad" width="85%">
+	                    	#{actividad.tipo}
+	                     </p:column>
+				     </p:dataTable>		       
+			     </p:scrollPanel>
+			     <br/><br/>
+                 <p:commandButton id="actividad_establecimiento_cancelar" value="Aceptar" oncomplete="PF('dlg_actividad_establecimientos').hide();" process="@this"  />                 
+			</p:dialog>
+			<script type="text/javascript">
+				//<![CDATA[
+				function setGroupId(radio){					
+					document.getElementById("riForm:establecimientos:establecimientoID").value=radio.id;	
+				}
+				//]]>
+			</script>
+            <p:panel header="Establecimientos Registrados" id="#{cc.id}">
+            	<p:tooltip/>
+                <p:dataTable value="#{cc.attrs.establecimientos}" rowKey="#{establecimiento.codigoIdentificacion.ri}" selectionMode="single" selection="#{establecimientoController.selectedEstablecimiento}" var="establecimiento" resizableColumns="true" paginator="false" id="tablaEstablecimientos" styleClass="panelEstablecimientos" emptyMessage="No se encuentran Establecimientos cargadas">
+
+					<f:facet name="header">
+					  <p:commandButton value="Agrupar" action="#{establecimientoController.agrupar}" update="#{cc.attrs.formId}:establecimientos:modal_agrupar" />
+					</f:facet>
+					
+					<p:ajax event="rowSelect" listener="#{establecimientoController.onRowSelect}" update="#{cc.attrs.formId}:establecimientos:modal_actividad_establecimiento" />
+
+					<p:column width="2%">
+                    	<h:selectBooleanCheckbox valueChangeListener="#{establecimientoController.addToGroup}">    							
+   							<p:ajax event="valueChange" update="#{cc.attrs.formId}:#{cc.id}:tablaEstablecimientos:0:agregarLote1" />
+   							<f:attribute name="establecimiento" value="#{establecimiento.codigoIdentificacion.ri}" /> 
+					    </h:selectBooleanCheckbox>                    
+                    </p:column>
+                    
+                    <h:inputHidden id="establecimientoID" value="#{establecimiento.id}" />
+                    <p:column headerText="Renspa" width="16%">      
+						<h:outputText value="#{establecimiento.codigoIdentificacion.senasa}" />        						
+                    </p:column>					
+                   
+                    <p:column headerText="Establecimiento" width="12%">
+                            #{establecimiento.nombre}
+                    </p:column> 
+                    <p:column headerText="Organismo" width="12%">
+                            #{establecimiento.organismo}
+                    </p:column>
+                    
+                    <p:column id="cod_integrador" headerText="Cod. Integ." width="12%">               	     
+                           #{establecimiento.grupo}
+                    </p:column>
+                    
+                    <p:column headerText="Ver más" rendered="#{cc.attrs.viewMode eq 'true' }" width="12%" styleClass="text-center">
+                        <p:commandButton value="Ver" actionListener="#{establecimientoController.selectEstablecimiento(establecimiento)}"  action="#{cc.attrs.verEstablecimientoButtonAction}" update="#{cc.attrs.formId}" />
+                    </p:column>
+                    <p:column headerText="Agregar lote" rendered="#{cc.attrs.viewMode eq 'true' }" width="12%"  styleClass="text-center">
+                        <p:commandButton id="agregarLote1" value="Agregar" actionListener="#{loteController.setEstablecimiento(establecimiento)}" action="#{cc.attrs.agregarLoteButtonAction}" update="#{cc.attrs.formId}" disabled="#{!establecimientoController.hasRenspa(establecimiento)}" />
+                    </p:column>
+                    <p:column headerText="Desagrupar" width="12%" styleClass="text-center">
+                        <p:commandButton value="Desagrupar" action="#{establecimientoController.desagrupar(establecimiento.codigoIdentificacion.ri)}" update="#{cc.attrs.formId}" />
+                    </p:column>
+                    
+                </p:dataTable>
+            </p:panel>    
+    </composite:implementation>
+</ui:composition>

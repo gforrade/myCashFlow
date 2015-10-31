@@ -1,0 +1,65 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:p="http://primefaces.org/ui"
+				template="/WEB-INF/templates/layout.xhtml">
+
+	<ui:define name="title">
+		My Personal Cashflow
+	</ui:define>
+
+	<ui:define name="content">
+		<h1>Ingreso Nuevo Concepto</h1>
+		<h:form id="formGasto">
+
+			<p:panel header="Datos Concepto" id="panelIngresoConceptoForecast">
+				<p:messages id="msgs" />
+				<p:panelGrid columns="2" layout="grid" styleClass="panelActividad">
+					<h:outputLabel for="centroCosto" value="Centro Costo" />
+					<p:selectOneMenu styleClass="pf-input width-10" value="#{gastoController.centroCostoId}" id="centroCosto">
+						<f:selectItems value="#{gastoController.centroCostos}" var="centroCosto" itemLabel="#{centroCosto.label}" itemValue="#{centroCosto.value}"/>
+					</p:selectOneMenu>
+
+					<h:outputLabel for="categoriaGasto" value="Categoria" />
+					<p:selectOneMenu styleClass="pf-input width-10" value="#{gastoController.categoriaGastoId}" id="categoriaGasto">
+						<f:selectItem itemLabel="Select One" itemValue="" />
+						<f:selectItems value="#{gastoController.grupoGastos}" var="categoriaGasto" itemLabel="#{categoriaGasto.label}" itemValue="#{categoriaGasto.value}"/>
+						<p:ajax event="change" update="subCategoriaGasto" listener="#{gastoController.onSelectCategoria}" process="@this"></p:ajax>
+					</p:selectOneMenu>
+
+					<h:outputLabel for="subCategoriaGasto" value="Concepto" />
+					<p:selectOneMenu styleClass="pf-input width-10" value="#{gastoController.tipoGastoId}" id="subCategoriaGasto">
+						<f:selectItems value="#{gastoController.subCategoriasGasto}" var="subCategoriaGasto" itemLabel="#{subCategoriaGasto.label}" itemValue="#{subCategoriaGasto.value}"/>
+					</p:selectOneMenu>
+
+					<h:outputLabel for="nroMeses" value="Numero Meses" />
+					<p:selectOneMenu styleClass="pf-input width-10" value="#{gastoController.cantidadMeses}" id="nroMeses">
+						<f:selectItems value="#{gastoController.meses}" var="mes" itemLabel="#{mes.label}" itemValue="#{mes.value}"/>
+					</p:selectOneMenu>
+
+
+					<h:outputLabel for="fechaComienzo" value="Fecha Inicio" />
+					<p:calendar  id="fechaComienzo" styleClass="pf-input width-40"
+								 value="#{gastoController.fechaInicio}"
+								 pattern="dd/MM/yyyy">
+						<f:convertDateTime pattern="dd/MM/yyyy"/>
+					</p:calendar>
+
+					<p:outputLabel value="Importe Mensual" for="importeGasto" />
+					<p:inputText styleClass="pf-input width-40" id="importeGasto" value="#{gastoController.importe}">
+						<f:convertNumber type="currency" currencySymbol="$" />
+					</p:inputText>
+				</p:panelGrid>
+				<br />
+				<br />
+				<p:commandButton value="Guardar" update="panelIngresoConceptoForecast" action="#{gastoController.agregarGasto}"/>
+				<p:commandButton value="Limpiar" update="panelIngresoConceptoForecast" process="@this"  >
+					<p:resetInput target="panelIngresoConceptoForecast" />
+				</p:commandButton>
+				<b/>
+			</p:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>
+

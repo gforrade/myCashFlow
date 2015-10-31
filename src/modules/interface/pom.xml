@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+
+    <artifactId>interfaces</artifactId>
+    <packaging>jar</packaging>
+    <version>1.0.0</version>
+
+    <name>My Personal Cashlfow - Interface</name>
+
+    <parent>
+        <groupId>ar.com.gaf.financial</groupId>
+        <artifactId>mycashflow</artifactId>
+        <version>1.0.0</version>
+        <relativePath>../../pom.xml</relativePath>
+    </parent>
+
+    <dependencies>
+
+        <!-- My Personal Cashlfow - Commons -->
+        <dependency>
+            <groupId>ar.com.gaf.financial</groupId>
+            <artifactId>common</artifactId>
+        </dependency>
+
+        <!-- My Personal Cashlfow - Model -->
+        <dependency>
+            <groupId>ar.com.gaf.financial</groupId>
+            <artifactId>model</artifactId>
+        </dependency>
+
+    </dependencies>
+
+</project>

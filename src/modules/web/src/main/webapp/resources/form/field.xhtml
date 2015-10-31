@@ -1,0 +1,21 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+      xmlns:composite="http://java.sun.com/jsf/composite">
+<composite:interface>
+    <composite:facet name="label" />
+    <composite:attribute name="labelText" />
+    <composite:attribute name="labelFor" />
+    <composite:attribute name="colspan" default="2,4" />
+</composite:interface>
+
+<composite:implementation>
+    <div class="col span_#{fn:substringBefore(cc.attrs.colspan, ',')}_of_12 form-label">
+        <composite:renderFacet name="label"/>
+        <h:outputLabel value="#{cc.attrs.labelText}" for="#{cc.attrs.labelFor}" rendered="#{empty cc.facets.label}" />
+    </div>
+    <div class="col span_#{fn:substringAfter(cc.attrs.colspan, ',')}_of_12 form-field"><composite:insertChildren /></div>
+</composite:implementation>
+</html>

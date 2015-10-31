@@ -1,0 +1,169 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:p="http://primefaces.org/ui" template="/WEB-INF/templates/layoutLeftMenu.xhtml">
+
+	<ui:define name="title">
+		MinAgri - Argentina - #{msgs.index_title}
+	</ui:define>
+
+	<ui:define name="head">
+		<h:outputStylesheet name="estilos_portadas.css" library="css" />
+	</ui:define>
+
+	<ui:define name="content">
+		<h:form id="cargaPlanilla" enctype="multipart/form-data">
+			<h1>#{msgs.index_header}</h1>
+			<p>#{msgs.index_subheader}</p>
+
+            <div class="section group">
+                <div class="col span_2_of_12 form-label">Archivo Excel</div>
+                <div class="col span_10_of_12 form-field">
+                    <p:fileUpload fileUploadListener="#{exceptionHandlerController.fileUpload}"
+                                  mode="advanced"
+                                  update=":cargaPlanilla"
+                                  auto="true"
+                                  label="Seleccionar"
+                                  style="display: inline-block; vertical-align: middle;"
+                                  onstart="PF('ajaxStatus').show()"
+                                  oncomplete="PF('ajaxStatus').hide()"
+                                  styleClass="ui-fileupload-browserbuttononly" />
+                    <h:outputText id="uploadedFile" value="#{exceptionHandlerController.adjunto.nombre}"
+                                  style="font-weight: bold; margin-left: 10px;" />
+                </div>
+            </div>
+
+
+            <h:panelGroup rendered="#{not empty exceptionHandlerController.rowsLotes}" layout="block" style="margin-bottom: 12px;">
+                <p:dataTable widgetVar="rowsLotesTableWV" id="rowsNovedadesTable" var="rowLote"
+                             value="#{exceptionHandlerController.rowsLotes}"
+                             emptyMessage="" rowStyleClass="#{rowLote.hasError() ? 'row-error' : ''}"
+                        >
+
+                    <p:column headerText="Estado" width="50" style="text-align: center;" styleClass="#{rowLote.hasError() ? 'value-failure' : ''}">
+                        <h:panelGroup rendered="#{rowLote.hasError()}">
+                            <h:outputText id="estadoError" value="ERROR" />
+                            <p:tooltip for="estadoError">
+                                <ul class="tooltip-error-list">
+                                    <ui:repeat value="#{rowLote.errorList}" var="error">
+                                        <li>#{error}</li>
+                                    </ui:repeat>
+                                </ul>
+                            </p:tooltip>
+                        </h:panelGroup>
+                        <h:panelGroup rendered="#{not rowLote.hasError()}">
+                            OK
+                        </h:panelGroup>
+                    </p:column>
+
+                    <p:column headerText="Fila" width="20" style="text-align: center;">
+                        #{rowLote.row.rowNum + 1}
+                    </p:column>
+
+                    <p:columns value="#{exceptionHandlerController.columns}"
+                               var="columna" columnIndexVar="colIndex"
+                               styleClass="#{exceptionHandlerController.isCellErrorByRowNovedadColumnName(rowLote, columna) ? 'value-failure' : ''}">
+                        <f:facet name="header">
+                            #{columna}
+                        </f:facet>
+
+                        <h:outputText id="value" value="#{exceptionHandlerController.getCellStringValueByRowColumnName(rowLote.row, columna)}"
+                                      style="display: block;" />
+                        <p:tooltip for="value" rendered="#{exceptionHandlerController.isCellErrorByRowNovedadColumnName(rowLote, columna)}"
+                                   style="width: 280px;">
+                            <ul class="tooltip-error-list">
+                                <ui:repeat value="#{exceptionHandlerController.getCellErrorsByRowNovedadColumnName(rowLote, columna)}" var="error">
+                                    <li>#{error}</li>
+                                </ui:repeat>
+                            </ul>
+                        </p:tooltip>
+                    </p:columns>
+
+                </p:dataTable>
+            </h:panelGroup>
+
+
+            <h3 style="margin-top: 0">AJAX</h3>
+			<p:commandButton actionListener="#{exceptionHandlerController.throwViewExpiredException}" value="Throw ViewExpiredException!" />
+			<p:commandButton actionListener="#{exceptionHandlerController.throwNullPointerException}" value="Throw NullPointerException!" />
+			<p:commandButton actionListener="#{exceptionHandlerController.throwWrappedIllegalStateException}" value="Throw IllegalStateException!" />
+			<br />
+			<p:commandButton actionListener="#{exceptionHandlerController.catchBusinessException}" value="Catch BusinessException!" />
+			<p:commandButton actionListener="#{exceptionHandlerController.savePerson}" value="Save Person!" />
+
+			<h3>Non-AJAX</h3>
+			<p:commandButton actionListener="#{exceptionHandlerController.throwViewExpiredException}" ajax="false" value="Throw ViewExpiredException!" />
+			<p:commandButton actionListener="#{exceptionHandlerController.throwNullPointerException}" ajax="false" value="Throw NullPointerException!" />
+
+			<div style="width: 100%; border-bottom: #E2EDEB solid 3px; background: #E2EDEB; height: 22px; color: #629392">
+				<div style='text-align: center; padding-top: 5px;'>
+					<strong>#{msgs.gestionInformacion} - #{msgs.operadoresGranos}</strong>
+				</div>
+			</div>
+
+
+
+			<!--fin TITULO ENCABEZADO DEL DIV CUERPO-->
+
+
+			<div style="margin: 10px">
+				<p class="titulardo">#{msgs.operadoresGranos}</p>
+				<p>
+					Desde el 1º de abril de 2004 rige la nueva modalidad para la información de operaciones en el comercio de granos, según <a href="ressagypa15405.php"><b>Resolución
+					Conjunta SAGPyA Nº 154/05 y AFIP Nº 1855/05</b></a> y <a href="disposicionexoncca370905.php"><b>Disposición ex-ONCCA Nº 3793/05</b></a>.
+				</p>
+				<p>
+					Cabe agregar que mediante la <a href="resexoncca707.php"><b>Resolución ex-ONCCA Nº 7/07</b></a>, se realizó una recategorización de los operadores que actúan en el comercio de
+					granos. También por medio de la <a href="resexoncca495607.php"><b>Resolución ex-ONCCA Nº 4956/07 y AFIP Nº 2324/07</b></a> se subdivide la información según organismo.
+				</p>
+				<p>
+					La información deberá ser presentada utilizando la aplicación <u>Movimientos Granos</u> (actualización 37.13.6, pantalla color celeste), que puede descargar más abajo en esta
+					misma página.
+				</p>
+
+
+				<p style="padding: 10px; background-color: #f6f6f6;">
+					<span style="color: rgb(255, 0, 0);"><b>IMPORTANTE:</b></span> <b> <br /> Esta es una versi&#243;n mejorada del aplicativo, que es compatible con las distintas versiones
+					de Microsoft Windows existentes. El mismo reemplazar&#225; autom&#225;ticamente a la versi&#243;n del aplicativo que usted tenga instalada en su computadora, sin necesidad de
+					procedimiento espec&#237;fico alguno.
+				</b>
+				</p>
+
+				<p>
+					Dicha aplicación permite la importación de los registros correspondientes y la generación de un archivo de cada período a presentar. Las <b>Declaraciones Juradas de
+					Movimientos y operaciones comerciales de Granos</b> deben realizarse mensualmente y/o semanalmente, seg&#250;n corresponda a la actividad. Para esto, se utiliza la aplicación
+					antes mencionadaque genera un archivo <b>granos.zip</b> para ser enviado por e-mail a <a href="mailto:movimientos@minagri.gob.ar">movimientos@minagri.gob.ar</a>
+				</p>
+				<p>&#160;</p>
+				<p>
+					Para realizar consultas usted puede dirigirse a <a href="mailto:gestiongranos@magyp.gob.ar">gestiongranos@magyp.gob.ar</a>
+				</p>
+				<p>&#160;</p>
+
+				<div style="margin: 5px 25px;">
+					<p>
+						<strong>Descargas</strong>
+					</p>
+					<p>
+						<a title="10200Kb - (31-07-12)" href="_files/aplicativo_granos/setup.zip" target="_blank"> <img src="/site/_img/_zip.gif" alt="" /> Aplicativo <b>Movimientos Granos</b>
+							actualización 37.13.6
+						</a>
+					</p>
+					<p>
+						<a title="781Kb - (02-08-12)" href="_files/aplicativo_granos/Manual de Ayuda_Movimientos_Granos_2012_08_02.pdf" target="_blank"> <img src="/site/_img/_pdf.gif" alt="" />
+							Manual de Ayuda para Operadores de Comercio de Granos
+						</a>
+					</p>
+					<p>
+						<a title="65Kb - (07-08-12)" href="_files/aplicativo_granos/presentaciones.pdf" target="_blank"> <img src="/site/_img/_pdf.gif" alt="" /> Instructivo sobre las
+							presentaciones
+						</a>
+					</p>
+				</div>
+			</div>
+
+			<br />
+
+			<div style='background: #fff; padding: 5px; clear: both'></div>
+
+		</h:form>
+	</ui:define>
+</ui:composition>

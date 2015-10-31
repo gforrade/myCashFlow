@@ -1,0 +1,190 @@
+@charset "utf-8";
+/* CSS PARA TODAS LAS PORTADAS */
+
+#contenido {
+width:765px;
+float:left;
+height:auto;
+margin:0 0 0 0;
+background:#FFFFFF;
+font: 11px Verdana, Arial, Helvetica, sans-serif}
+
+#contenido #bloqueizquierda{
+width:575px;
+float:left;
+height:auto;
+margin: 0;
+}
+
+
+
+
+#contenido #bloquederecha{
+width:180px;
+float:left;
+height:auto;
+margin: 10px 0 0 8px;
+
+}
+
+
+
+#contenido #bloqueizquierda #cabezal{
+width:575px;
+float:left;
+height:auto;
+margin: 0 0 20px 0;
+}
+
+
+#contenido #bloqueizquierda #noticias{
+width:565px;
+float:left;
+min-height:186px;
+height:auto;
+margin: 0;
+background:#E5E5E5;
+padding:10px 0 10PX 10px;
+overflow:hidden;
+}
+
+#contenido #bloqueizquierda #noticias2{
+width:555px;
+float:left;
+min-height:90px;
+height:auto;
+margin: 0;
+background:#E5E5E5;
+padding:10px 10px 10PX 10px;
+overflow:hidden;
+}
+#contenido #bloqueizquierda #noticias .foto{
+width:238px;
+float:left;
+height:162PX;
+
+}
+#contenido #bloqueizquierda img{
+border:none;
+}
+
+#contenido #bloqueizquierda #noticias .textodestacado{
+width:320px;
+float:left;
+height:auto;
+margin:0 0 10px 0;
+}
+#contenido #bloqueizquierda #noticias .bloque{
+width:350px;
+float:left;
+height:auto;
+margin:0 0 10px 0;
+}
+
+
+#contenido #bloqueizquierda .fecha{
+width:350px;
+float:left;
+height:auto;
+margin:2px 0 2px 0 ;
+color:#999999;
+}
+#contenido #bloqueizquierda .fecha2{
+width:150px;
+float:left;
+height:auto;
+margin:2px 0 2px 0 ;
+color:#999999;
+}
+
+#contenido #bloqueizquierda .volanta{
+width:auto;
+padding-right:10px;
+
+float:left;
+height:auto;
+margin:2px 0 2px 0 ;
+color:#999999;
+margin-bottom:10px;
+margin-top:5px;
+font-size:12px; 
+}
+
+#contenido #bloqueizquierda .novedades {
+width:265px;
+background:#F3F3F3;
+float:left;
+min-height:145px;
+height:150px;
+margin:5px 0 0 0;
+padding:10px;
+overflow:hidden;
+
+}
+
+#contenido #bloqueizquierda .novedades .foto{
+width:100px;
+float:left;
+height:75px;
+margin:0 10px 0 0;
+
+}
+
+#contenido #bloqueizquierda .novedades .textochico{
+width:154px;
+float:left;
+height:auto;
+margin:0;
+color:#666666;
+}
+
+
+#contenido #bloquederecha .cuadro{
+/*width:154px;*/
+float:left;
+height:auto;
+padding:5px 10px;
+border:1px solid #CCCCCC;
+margin:0 0 10px 0;
+}
+
+#contenido #bloquederecha .cuadro .tapa{
+width:80px;
+float:left;
+height:115px;
+}
+
+#contenido #bloquederecha .cuadro .txt{
+width:78px;
+float:left;
+height:115px;
+}
+
+#contenido #bloquederecha .titulo{
+width:150px;
+float:left;
+height:auto;
+margin:0 0 2px 0;
+
+}
+#contenido #bloquederecha .masinfo{
+width:150px;
+float:right;
+height:15px;
+}
+
+
+#contenido #bloquederecha .txt2{
+width:155px;
+float:left;
+height:auto;
+margin:5px 0 0 0;
+border-bottom: 1px solid #E5E5E5;
+padding:0 0 5px 0;
+}
+
+#contenido #bloquederecha .epigrafe{
+    width: 155px;
+    padding-right: 1px;
+    margin-left: 1px;
+        }

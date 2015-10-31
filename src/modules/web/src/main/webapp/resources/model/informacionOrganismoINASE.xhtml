@@ -1,0 +1,117 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:f="http://java.sun.com/jsf/core"    
+    xmlns:composite="http://java.sun.com/jsf/composite">
+
+    <!-- INTERFACE -->
+    <composite:interface>
+    		<composite:attribute name="informacionOrganismoInase" type="java.util.List"/>
+    </composite:interface>
+          
+    <!-- IMPLEMENTATION -->
+    <composite:implementation>
+         <p:panel>
+            <p:dataTable value="#{cc.attrs.informacionOrganismoInase}" var="INASE" paginator="false" emptyMessage="No se encuentra información de INASE cargada">
+
+  
+                    <p:column headerText="Nombre" width="10%" >
+                           #{INASE.nombre}
+                    </p:column> 
+                    <p:column headerText="Fecha de Ingreso" width="10%">
+                            <h:outputText value="#{INASE.fechaIngreso}">
+										<f:convertDateTime pattern="dd/MM/yyyy"/>
+							</h:outputText>
+                    </p:column>                    
+                    <p:column headerText="Domicilio Real" width="10%">
+                            #{INASE.domicilioReal}
+                    </p:column>
+                    <p:column headerText="Localidad Real" width="10%">
+                            #{INASE.localidadReal}
+                    </p:column>
+                    <p:column headerText="Provincia Real" width="10%">
+                            #{INASE.provinciaReal}
+                    </p:column>                    
+                    <p:column headerText="Actividad" width="10%">
+                            #{INASE.actividadE}
+                    </p:column>
+<!--                     <p:column headerText="Cuit" width="10%"> -->
+<!--                            #{INASE.cuit}                          -->
+<!--                     </p:column>  -->
+<!--                     <p:column headerText="Código Postal Real" width="10%"> -->
+<!--                             #{INASE.codigoPostalReal} -->
+<!--                     </p:column> -->
+<!--                     <p:column headerText="Domicilio Especial" width="10%"> -->
+<!--                             #{INASE.domicilioEspecial} -->
+<!--                     </p:column> -->
+<!--                     <p:column headerText="Localidad Especial" width="10%"> -->
+<!--                             #{INASE.localidadEspecial} -->
+<!--                     </p:column> -->
+<!--                     <p:column headerText="Provincia Especial" width="10%"> -->
+<!--                             #{INASE.provinciaEspecial} -->
+<!--                     </p:column> -->
+<!--                     <p:column headerText="Código Postal Especial" width="10%"> -->
+<!--                             #{INASE.codigoPostalEspecial} -->
+<!--                     </p:column> -->
+<!--                     <p:column headerText="Teléfono Real" width="10%"> -->
+<!--                             #{INASE.telefonoReal} -->
+<!--                     </p:column> -->
+<!--                     <p:column headerText="Teléfono Especial" width="10%"> -->
+<!--                             #{INASE.telefonoEspecial} -->
+<!--                     </p:column> -->
+<!--                     <p:column headerText="Correo Electronico" width="10%"> -->
+<!--                             #{INASE.correoElectronico} -->
+<!--                     </p:column> -->
+<!--                     <p:column headerText="Categorias" width="10%"> -->
+<!--                             #{INASE.categorias} -->
+<!--                     </p:column> -->
+<!--                     <p:column headerText="Organismo" width="10%"> -->
+<!--                             #{INASE.organismo} -->
+<!--                     </p:column> -->
+<!--                     <p:column headerText="Fecha de Vencimiento" width="10%"> -->
+                            
+<!--                           <h:outputText value="#{INASE.fechaVencimiento}"> -->
+<!-- 										<f:convertDateTime pattern="dd/MM/yyyy"/> -->
+<!-- 						</h:outputText>    -->
+<!--                     </p:column> -->
+<!--                     <p:column headerText="Registro E" width="10%"> -->
+<!--                             #{INASE.registroE} -->
+<!--                     </p:column> -->
+
+<!--                     <p:column headerText="Establecimiento" width="10%"> -->
+<!--                             #{INASE.idEstablecimiento} -->
+<!--                     </p:column> -->
+<!--                     <p:column headerText="Registro" width="10%"> -->
+<!--                             #{INASE.registro} -->
+<!--                     </p:column> -->
+
+<!--                     <p:column headerText="Número E" width="10%"> -->
+<!--                             #{INASE.numeroE} -->
+<!--                     </p:column> -->
+<!--                     <p:column headerText="Domicilio E" width="10%"> -->
+<!--                             #{INASE.domicilioE} -->
+<!--                     </p:column> -->
+<!--                     <p:column headerText="Localidad E" width="10%"> -->
+<!--                             #{INASE.localidadE} -->
+<!--                     </p:column> -->
+<!--                     <p:column headerText="Provincia E" width="10%"> -->
+<!--                             #{INASE.provinciaE} -->
+<!--                     </p:column> -->
+<!--                     <p:column headerText="Código Postal E" width="10%"> -->
+<!--                             #{INASE.codigoPostalE} -->
+<!--                     </p:column>  -->
+<!--                     <p:column headerText="Vigencia Hasta E" width="10%"> -->
+<!--                             #{INASE.vigenciaHastaE} -->
+<!--                     </p:column>  -->
+<!--                     <p:column headerText="Organismo E" width="10%"> -->
+<!--                             #{INASE.organismoE} -->
+<!--                     </p:column>     -->
+           </p:dataTable>
+     </p:panel>        
+    
+    </composite:implementation>    
+
+</html>

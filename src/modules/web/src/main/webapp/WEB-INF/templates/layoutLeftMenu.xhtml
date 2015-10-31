@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	template="layout.xhtml">
+	<ui:define name="contentWrapper">
+			<table border="0" cellspacing="5" cellpadding="0" bgcolor="#fff" align="center">
+				<tr>
+					<td width="180" bgcolor="#fff" valign="top" style="background: #FFFFFF">
+						<div id="lateral" style="background: #FFFFFF;">
+							<script type="text/javascript">
+								$(document).ready(function() { // Script del Navegador
+									$("ul.subnavegador").hide();
+									$("a.desplegable").toggle(
+										function() {
+											$(this).parent().find("ul.subnavegador").slideDown('fast');
+										},
+										function() {
+											$(this).parent().find("ul.subnavegador").slideUp('fast');
+										}
+									);
+								});
+							</script>
+							<div style="background: #f6f6f6; text-align: left; border-bottom: solid 1px #E2EDEB;">
+								<div style="border-bottom: #9AC5C7 solid 3px; background: #E2EDEB; min-height: 22px; color: #18A2A2">
+									<div onclick="javascript:window.location=('../../../../areas/matriculacion_y_fiscalizacion/index.php')"
+										style='width: 170px; height: auto; padding: 0 0 3px 5px; cursor: pointer;'>
+										<div style='padding-top: 5px;'>
+											<strong>MATRICULACIÓN Y FISCALIZACIÓN</strong>
+										</div>
+									</div>
+								</div>
+								<div title='../../../../../site/areas/matriculacion_y_fiscalizacion/01_Institucional/index.php' style='width: 180px; border-top: solid 1px #E2EDEB'>
+									<div style='padding: 3px 0 3px 5px'>
+										<font color='#666'><strong>INSTITUCIONAL</strong></font>
+									</div>
+								</div>
+								<div onclick="javascript:window.location=('../../../../../site/areas/matriculacion_y_fiscalizacion/01_Institucional/01_Objetivos/index.php')"
+									onmouseover="this.style.background='#eee'" onmouseout="this.style.background='#f6f6f6'" style='width: 180px; cursor: pointer;'>
+									<div style='padding: 3px 0 3px 5px; padding-left: 10px'>
+										<font color='#629392'>Objetivos</font>
+									</div>
+								</div>
+								<div onclick="javascript:window.location=('../../../../../site/areas/matriculacion_y_fiscalizacion/01_Institucional/02_misiones y funciones/index.php')"
+									onmouseover="this.style.background='#eee'" onmouseout="this.style.background='#f6f6f6'" style='width: 180px; cursor: pointer;'>
+									<div style='padding: 3px 0 3px 5px; padding-left: 10px'>
+										<font color='#629392'>Misiones y funciones</font>
+									</div>
+								</div>
+								<div title='../../../../../site/areas/matriculacion_y_fiscalizacion/02_Normativas/index.php' style='width: 180px; border-top: solid 1px #E2EDEB'>
+									<div style='padding: 3px 0 3px 5px'>
+										<font color='#666'><strong>NORMATIVAS</strong></font>
+									</div>
+								</div>
+								<div onclick="javascript:window.location=('../../../../../site/areas/matriculacion_y_fiscalizacion/02_Normativas/01_resoluciones/index.php')"
+									onmouseover="this.style.background='#eee'" onmouseout="this.style.background='#f6f6f6'" style='width: 180px; cursor: pointer;'>
+									<div style='padding: 3px 0 3px 5px; padding-left: 10px'>
+										<font color='#629392'>Resoluciones</font>
+									</div>
+								</div>
+								<div title='../../../../../site/areas/matriculacion_y_fiscalizacion/03_matriculación/index.php' style='width: 180px; border-top: solid 1px #E2EDEB'>
+									<div style='padding: 3px 0 3px 5px'>
+										<font color='#666'><strong>MATRICULACIÓN</strong></font>
+									</div>
+								</div>
+								<div onclick="javascript:window.location=('../../../../../site/areas/matriculacion_y_fiscalizacion/03_matriculación/01_Ruca/index.php')"
+									onmouseover="this.style.background='#eee'" onmouseout="this.style.background='#f6f6f6'" style='width: 180px; cursor: pointer;'>
+									<div style='padding: 3px 0 3px 5px; padding-left: 10px'>
+										<font color='#629392'>Ruca</font>
+									</div>
+								</div>
+								<div title='../../../../../site/areas/matriculacion_y_fiscalizacion/04_fiscalización/index.php' style='width: 180px; border-top: solid 1px #E2EDEB'>
+									<div style='padding: 3px 0 3px 5px'>
+										<font color='#666'><strong>FISCALIZACIÓN</strong></font>
+									</div>
+								</div>
+								<div onclick="javascript:window.location=('../../../../../site/areas/matriculacion_y_fiscalizacion/04_fiscalización/01_Qué son las fiscalizaciones/index.php')"
+									onmouseover="this.style.background='#eee'" onmouseout="this.style.background='#f6f6f6'" style='width: 180px; cursor: pointer;'>
+									<div style='padding: 3px 0 3px 5px; padding-left: 10px'>
+										<font color='#629392'>Qué son las fiscalizaciones</font>
+									</div>
+								</div>
+								<div onclick="javascript:window.location=('../../../../../site/areas/matriculacion_y_fiscalizacion/04_fiscalización/04_Denuncias/index.php')"
+									onmouseover="this.style.background='#eee'" onmouseout="this.style.background='#f6f6f6'" style='width: 180px; cursor: pointer;'>
+									<div style='padding: 3px 0 3px 5px; padding-left: 10px'>
+										<font color='#629392'>Denuncias</font>
+									</div>
+								</div>
+								<div title='../../../../../site/areas/matriculacion_y_fiscalizacion/05_Gestión de información/index.php' style='width: 180px; border-top: solid 1px #E2EDEB'>
+									<div style='padding: 3px 0 3px 5px'>
+										<font color='#666'><strong>GESTIÓN DE INFORMACIÓN</strong></font>
+									</div>
+								</div>
+								<div onclick="javascript:window.location=('../../../../../site/areas/matriculacion_y_fiscalizacion/05_Gestión de información/01_Operadores_Granos/index.php')"
+									onmouseover="this.style.background='#eee'" onmouseout="this.style.background='#f6f6f6'" style='width: 180px; cursor: pointer;'>
+									<div style='padding: 3px 0 3px 5px; padding-left: 10px'>
+										<font color='#629392'>Operadores Granos</font>
+									</div>
+								</div>
+								<div onclick="javascript:window.location=('../../../../../site/areas/matriculacion_y_fiscalizacion/05_Gestión de información/02_Operadores Porcinos/index.php')"
+									onmouseover="this.style.background='#eee'" onmouseout="this.style.background='#f6f6f6'" style='width: 180px; cursor: pointer;'>
+									<div style='padding: 3px 0 3px 5px; padding-left: 10px'>
+										<font color='#629392'>Operadores Porcinos</font>
+									</div>
+								</div>
+								<div onclick="javascript:window.location=('../../../../../site/areas/matriculacion_y_fiscalizacion/05_Gestión de información/03_Operadores Bovinos/index.php')"
+									onmouseover="this.style.background='#eee'" onmouseout="this.style.background='#f6f6f6'" style='width: 180px; cursor: pointer;'>
+									<div style='padding: 3px 0 3px 5px; padding-left: 10px'>
+										<font color='#629392'>Operadores Bovinos</font>
+									</div>
+								</div>
+								<div onclick="javascript:window.location=('../../../../../site/areas/matriculacion_y_fiscalizacion/05_Gestión de información/05_Operadores Lácteos/index.php')"
+									onmouseover="this.style.background='#eee'" onmouseout="this.style.background='#f6f6f6'" style='width: 180px; cursor: pointer;'>
+									<div style='padding: 3px 0 3px 5px; padding-left: 10px'>
+										<font color='#629392'>Operadores Lácteos</font>
+									</div>
+								</div>
+								<div onclick="javascript:window.location=('../../../../../site/areas/matriculacion_y_fiscalizacion/05_Gestión de información/06_Estadisticas/index.php')"
+									onmouseover="this.style.background='#eee'" onmouseout="this.style.background='#f6f6f6'" style='width: 180px; cursor: pointer;'>
+									<div style='padding: 3px 0 3px 5px; padding-left: 10px'>
+										<font color='#629392'>Estadisticas</font>
+									</div>
+								</div>
+								<div onclick="javascript:window.location=('../../../../../site/areas/matriculacion_y_fiscalizacion/06_RIVA/index.php')" onmouseover="this.style.background='#eee'"
+									onmouseout="this.style.background='#f6f6f6'" style='width: 180px; cursor: pointer; border-top: solid 1px #E2EDEB'>
+									<div style='padding: 3px 0 3px 5px'>
+										<strong><font color='#629392'>RIVA</font></strong>
+									</div>
+								</div>
+								<div onclick="javascript:window.location=('../../../../../site/areas/matriculacion_y_fiscalizacion/07_aranceles/index.php')" onmouseover="this.style.background='#eee'"
+									onmouseout="this.style.background='#f6f6f6'" style='width: 180px; cursor: pointer; border-top: solid 1px #E2EDEB'>
+									<div style='padding: 3px 0 3px 5px'>
+										<strong><font color='#629392'>ARANCELES</font></strong>
+									</div>
+								</div>
+							</div>
+							<div id="datos" style="background: #fff; text-align: center; margin-top: 10px;">
+								<div style="padding: 10px 5px 5px 5px; color: #999999;">
+									<br /> <br /> <br /> <br /> <br />
+								</div>
+							</div>
+						</div>
+					</td>
+					<td bgcolor="#fff" valign="top" style="background: #FFFFFF;">
+						<div id="cuerpo" style="background: #fff; min-height: 600px;">
+							<h:form prependId="false">
+								<p:outputPanel autoUpdate="true">
+									<h:messages globalOnly="true" styleClass="msgs-box no-style" style="display: none;" infoClass="msgs-item msgs-item-success" warnClass="msgs-item msgs-item-warn"
+										errorClass="msgs-item msgs-item-error" fatalClass="msgs-item msgs-item-error" />
+									<script type="text/javascript">
+										formatMessages();
+									</script>
+								</p:outputPanel>
+							</h:form>
+																		
+							<ui:insert name="content" />
+						</div>
+					</td>
+				</tr>
+			</table>
+	</ui:define>
+</ui:composition>

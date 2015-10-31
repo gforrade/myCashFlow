@@ -1,0 +1,386 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:model="http://java.sun.com/jsf/composite/model"
+	template="/WEB-INF/templates/layout.xhtml">
+
+	<ui:define name="title">
+		My Personal Cashflow
+	</ui:define>
+
+	<ui:define name="content">
+		<h1>My Personal Cashflow</h1>
+		<h:form id="cashFlowForm">
+
+			<p:panel header="Listado Gastos agrupados por Tarjeta Credito" id="listado2">
+				<p:panelGrid id="panelTarjetas" columns="1">
+
+				<h3>Gasto Anual Tarjetas</h3>
+				<p:dataTable var="gastoTarjeta" value="#{cashFlowTarjetasController.gastosTarjetasAnual}" resizableColumns="true"  selectionMode="single" selection="#{cashFlowTarjetasController.selectedFilaResultado}" rowKey="#{gastoTarjeta.concepto}"  scrollable="true" >
+					<p:ajax event="rowToggle" listener="#{cashFlowTarjetasController.seletTarjeta(gastoTarjeta)}" update="tabladetalle" />
+					<p:column style="width:16px">
+						<p:rowToggler/>
+					</p:column>
+					<p:column headerText="Tarjeta" width="25%">
+						<h:outputText value="#{gastoTarjeta.concepto}" />
+					</p:column>
+					<p:column headerText="Enero" width="15%" style="#{cashFlowTarjetasController.getBackgroundColumnaSeleccionada(1)}">
+						<h:outputText value="#{gastoTarjeta.importeMes1}">
+							<f:convertNumber type="currency" currencySymbol="$" />
+						</h:outputText>
+					</p:column>
+					<p:column headerText="Febrero" width="15%" style="#{cashFlowTarjetasController.getBackgroundColumnaSeleccionada(2)}">
+						<h:outputText value="#{gastoTarjeta.importeMes2}">
+							<f:convertNumber type="currency" currencySymbol="$" />
+						</h:outputText>
+					</p:column>
+					<p:column headerText="Marzo" width="15%" style="#{cashFlowTarjetasController.getBackgroundColumnaSeleccionada(3)}">
+						<h:outputText value="#{gastoTarjeta.importeMes3}">
+							<f:convertNumber type="currency" currencySymbol="$" />
+						</h:outputText>
+					</p:column>
+					<p:column headerText="Abril" width="15%" style="#{cashFlowTarjetasController.getBackgroundColumnaSeleccionada(4)}">
+						<h:outputText value="#{gastoTarjeta.importeMes4}">
+							<f:convertNumber type="currency" currencySymbol="$" />
+						</h:outputText>
+					</p:column>
+					<p:column headerText="Mayo" width="15%" style="#{cashFlowTarjetasController.getBackgroundColumnaSeleccionada(5)}">
+						<h:outputText value="#{gastoTarjeta.importeMes5}">
+							<f:convertNumber type="currency" currencySymbol="$" />
+						</h:outputText>
+					</p:column>
+					<p:column headerText="Junio" width="15%" style="#{cashFlowTarjetasController.getBackgroundColumnaSeleccionada(6)}">
+						<h:outputText value="#{gastoTarjeta.importeMes6}">
+							<f:convertNumber type="currency" currencySymbol="$" />
+						</h:outputText>
+					</p:column>
+					<p:column headerText="Julio" width="15%" style="#{cashFlowTarjetasController.getBackgroundColumnaSeleccionada(7)}">
+						<h:outputText value="#{gastoTarjeta.importeMes7}" >
+							<f:convertNumber type="currency" currencySymbol="$" />
+						</h:outputText>
+					</p:column>
+					<p:column headerText="Agosto" width="15%" style="#{cashFlowTarjetasController.getBackgroundColumnaSeleccionada(8)}">
+						<h:outputText value="#{gastoTarjeta.importeMes8}">
+							<f:convertNumber type="currency" currencySymbol="$" />
+						</h:outputText>
+					</p:column>
+					<p:column headerText="Setiembre" width="15%" style="#{cashFlowTarjetasController.getBackgroundColumnaSeleccionada(9)}">
+						<h:outputText value="#{gastoTarjeta.importeMes9}">
+							<f:convertNumber type="currency" currencySymbol="$" />
+						</h:outputText>
+					</p:column>
+					<p:column headerText="Octubre" width="15%" style="#{cashFlowTarjetasController.getBackgroundColumnaSeleccionada(10)}">
+						<h:outputText value="#{gastoTarjeta.importeMes10}">
+							<f:convertNumber type="currency" currencySymbol="$" />
+						</h:outputText>
+					</p:column>
+					<p:column headerText="Noviembre" width="15%" style="#{cashFlowTarjetasController.getBackgroundColumnaSeleccionada(11)}">
+						<h:outputText value="#{gastoTarjeta.importeMes11}">
+							<f:convertNumber type="currency" currencySymbol="$" />
+						</h:outputText>
+					</p:column>
+					<p:column headerText="Diciembre" width="15%">
+						<h:outputText value="#{gastoTarjeta.importeMes12}" style="#{cashFlowTarjetasController.getBackgroundColumnaSeleccionada(12)}">
+							<f:convertNumber type="currency" currencySymbol="$" />
+						</h:outputText>
+					</p:column>
+					<p:column headerText="Importe Total Anual" width="15%">
+						<h:outputText value="#{gastoTarjeta.importeTotalAnual}">
+							<f:convertNumber type="currency" currencySymbol="$" />
+						</h:outputText>
+					</p:column>
+
+					<p:rowExpansion>
+						<p:panelGrid  columns="1" >
+							<f:facet name="header">
+								Detalle Consumos Tarjeta
+							</f:facet>
+
+							<p:dataTable id="tabladetalle" var="gastoTarjetaMesAnio"  resizableColumns="true" value="#{cashFlowTarjetasController.gastoTarjetaCreditoMesAnio}"  selectionMode="single" selection="#{cashFlowTarjetasController.gastoSeleccionado}"   rowKey="#{gastoTarjetaMesAnio.concepto}" scrollable="true" >
+
+								<p:ajax event="rowSelect" listener="#{cashFlowTarjetasController.onRowSelect}" oncomplete="PF('gastoCorrienteDialog').show()" update="cashFlowForm:gastoSeleccionadoPanel"/>
+								<p:ajax event="rowUnselect" listener="#{cashFlowTarjetasController.onRowUnselect}"  />
+
+								<h:inputHidden id="gastoId" value="#{gastoTarjetaMesAnio.id}" />
+
+								<p:column headerText="Tarjeta" width="40%">
+									<h:outputText value="#{gastoTarjetaMesAnio.concepto}" />
+								</p:column>
+								<p:column headerText="Enero" width="15%" style="#{cashFlowTarjetasController.getBackgroundColumnaSeleccionada(1)}">
+									<h:outputText value="#{gastoTarjetaMesAnio.importeMes1}">
+										<f:convertNumber type="currency" currencySymbol="$" />
+									</h:outputText>
+								</p:column>
+								<p:column headerText="Febrero" width="15%" style="#{cashFlowTarjetasController.getBackgroundColumnaSeleccionada(2)}">
+									<h:outputText value="#{gastoTarjetaMesAnio.importeMes2}">
+										<f:convertNumber type="currency" currencySymbol="$" />
+									</h:outputText>
+								</p:column>
+								<p:column headerText="Marzo" width="15%" style="#{cashFlowTarjetasController.getBackgroundColumnaSeleccionada(3)}">
+									<h:outputText value="#{gastoTarjetaMesAnio.importeMes3}">
+										<f:convertNumber type="currency" currencySymbol="$" />
+									</h:outputText>
+								</p:column>
+								<p:column headerText="Abril" width="15%" style="#{cashFlowTarjetasController.getBackgroundColumnaSeleccionada(4)}">
+									<h:outputText value="#{gastoTarjetaMesAnio.importeMes4}">
+										<f:convertNumber type="currency" currencySymbol="$" />
+									</h:outputText>
+								</p:column>
+								<p:column headerText="Mayo" width="15%" style="#{cashFlowTarjetasController.getBackgroundColumnaSeleccionada(5)}">
+									<h:outputText value="#{gastoTarjetaMesAnio.importeMes5}">
+										<f:convertNumber type="currency" currencySymbol="$" />
+									</h:outputText>
+								</p:column>
+								<p:column headerText="Junio" width="15%" style="#{cashFlowTarjetasController.getBackgroundColumnaSeleccionada(6)}">
+									<h:outputText value="#{gastoTarjetaMesAnio.importeMes6}">
+										<f:convertNumber type="currency" currencySymbol="$" />
+									</h:outputText>
+								</p:column>
+								<p:column headerText="Julio" width="15%" style="#{cashFlowTarjetasController.getBackgroundColumnaSeleccionada(7)}">
+									<h:outputText value="#{gastoTarjetaMesAnio.importeMes7}">
+										<f:convertNumber type="currency" currencySymbol="$" />
+									</h:outputText>
+								</p:column>
+								<p:column headerText="Agosto" width="15%" style="#{cashFlowTarjetasController.getBackgroundColumnaSeleccionada(8)}">
+									<h:outputText value="#{gastoTarjetaMesAnio.importeMes8}">
+										<f:convertNumber type="currency" currencySymbol="$" />
+									</h:outputText>
+								</p:column>
+								<p:column headerText="Setiembre" width="15%" style="#{cashFlowTarjetasController.getBackgroundColumnaSeleccionada(9)}">
+									<h:outputText value="#{gastoTarjetaMesAnio.importeMes9}">
+										<f:convertNumber type="currency" currencySymbol="$" />
+									</h:outputText>
+								</p:column>
+								<p:column headerText="Octubre" width="15%" style="#{cashFlowTarjetasController.getBackgroundColumnaSeleccionada(10)}">
+									<h:outputText value="#{gastoTarjetaMesAnio.importeMes10}">
+										<f:convertNumber type="currency" currencySymbol="$" />
+									</h:outputText>
+								</p:column>
+								<p:column headerText="Noviembre" width="15%" style="#{cashFlowTarjetasController.getBackgroundColumnaSeleccionada(11)}">
+									<h:outputText value="#{gastoTarjetaMesAnio.importeMes11}">
+										<f:convertNumber type="currency" currencySymbol="$" />
+									</h:outputText>
+								</p:column>
+								<p:column headerText="Diciembre" width="15%" style="#{cashFlowTarjetasController.getBackgroundColumnaSeleccionada(12)}">
+									<h:outputText value="#{gastoTarjetaMesAnio.importeMes12}">
+										<f:convertNumber type="currency" currencySymbol="$" />
+									</h:outputText>
+								</p:column>
+
+							</p:dataTable>
+
+						</p:panelGrid>
+					</p:rowExpansion>
+
+				</p:dataTable>
+				</p:panelGrid>
+				</p:panel>
+
+			<p:panel header="Listado Gastos agrupados por Centro Costo" id="listadoCentroCosto">
+				<p:panelGrid id="panelCentroCosto" columns="1">
+
+					<h3>Gasto Anual Centro Costo</h3>
+					<p:dataTable var="gastoCentroCosto" value="#{cashFlowTarjetasController.gastosCentroCostoAnual}" resizableColumns="true"   scrollable="true" selectionMode="single" selection="#{cashFlowTarjetasController.selectedFilaResultado}" rowKey="#{gastoCentroCosto.concepto}">
+						<p:ajax event="rowToggle" listener="#{cashFlowTarjetasController.seletCentroCosto(gastoCentroCosto)}" update="tablaCentroCostodetalle" />
+
+						<p:column style="width:16px">
+							<p:rowToggler/>
+						</p:column>
+						<p:column headerText="Tarjeta" width="25%">
+							<h:outputText value="#{gastoCentroCosto.concepto}" />
+						</p:column>
+						<p:column headerText="Enero" width="15%" style="#{cashFlowTarjetasController.getBackgroundColumnaSeleccionada(1)}">
+							<h:outputText value="#{gastoCentroCosto.importeMes1}">
+								<f:convertNumber type="currency" currencySymbol="$" />
+							</h:outputText>
+						</p:column>
+						<p:column headerText="Febrero" width="15%" style="#{cashFlowTarjetasController.getBackgroundColumnaSeleccionada(2)}">
+							<h:outputText value="#{gastoCentroCosto.importeMes2}">
+								<f:convertNumber type="currency" currencySymbol="$" />
+							</h:outputText>
+						</p:column>
+						<p:column headerText="Marzo" width="15%" style="#{cashFlowTarjetasController.getBackgroundColumnaSeleccionada(3)}">
+							<h:outputText value="#{gastoCentroCosto.importeMes3}">
+								<f:convertNumber type="currency" currencySymbol="$" />
+							</h:outputText>
+						</p:column>
+						<p:column headerText="Abril" width="15%" style="#{cashFlowTarjetasController.getBackgroundColumnaSeleccionada(4)}">
+							<h:outputText value="#{gastoCentroCosto.importeMes4}">
+								<f:convertNumber type="currency" currencySymbol="$" />
+							</h:outputText>
+						</p:column>
+						<p:column headerText="Mayo" width="15%" style="#{cashFlowTarjetasController.getBackgroundColumnaSeleccionada(5)}">
+							<h:outputText value="#{gastoCentroCosto.importeMes5}">
+								<f:convertNumber type="currency" currencySymbol="$" />
+							</h:outputText>
+						</p:column>
+						<p:column headerText="Junio" width="15%" style="#{cashFlowTarjetasController.getBackgroundColumnaSeleccionada(6)}">
+							<h:outputText value="#{gastoCentroCosto.importeMes6}">
+								<f:convertNumber type="currency" currencySymbol="$" />
+							</h:outputText>
+						</p:column>
+						<p:column headerText="Julio" width="15%" style="#{cashFlowTarjetasController.getBackgroundColumnaSeleccionada(7)}">
+							<h:outputText value="#{gastoCentroCosto.importeMes7}">
+								<f:convertNumber type="currency" currencySymbol="$" />
+							</h:outputText>
+						</p:column>
+						<p:column headerText="Agosto" width="15%" style="#{cashFlowTarjetasController.getBackgroundColumnaSeleccionada(8)}">
+							<h:outputText value="#{gastoCentroCosto.importeMes8}">
+								<f:convertNumber type="currency" currencySymbol="$" />
+							</h:outputText>
+						</p:column>
+						<p:column headerText="Setiembre" width="15%" style="#{cashFlowTarjetasController.getBackgroundColumnaSeleccionada(9)}">
+							<h:outputText value="#{gastoCentroCosto.importeMes9}">
+								<f:convertNumber type="currency" currencySymbol="$" />
+							</h:outputText>
+						</p:column>
+						<p:column headerText="Octubre" width="15%" style="#{cashFlowTarjetasController.getBackgroundColumnaSeleccionada(10)}">
+							<h:outputText value="#{gastoCentroCosto.importeMes10}">
+								<f:convertNumber type="currency" currencySymbol="$" />
+							</h:outputText>
+						</p:column>
+						<p:column headerText="Noviembre" width="15%" style="#{cashFlowTarjetasController.getBackgroundColumnaSeleccionada(11)}">
+							<h:outputText value="#{gastoCentroCosto.importeMes11}">
+								<f:convertNumber type="currency" currencySymbol="$" />
+							</h:outputText>
+						</p:column>
+						<p:column headerText="Diciembre" width="15%" style="#{cashFlowTarjetasController.getBackgroundColumnaSeleccionada(12)}">
+							<h:outputText value="#{gastoCentroCosto.importeMes12}">
+								<f:convertNumber type="currency" currencySymbol="$" />
+							</h:outputText>
+						</p:column>
+						<p:column headerText="Importe Total Anual" width="15%">
+							<h:outputText value="#{gastoCentroCosto.importeTotalAnual}">
+								<f:convertNumber type="currency" currencySymbol="$" />
+							</h:outputText>
+						</p:column>
+
+						<p:rowExpansion>
+							<p:panelGrid  columns="1" >
+								<f:facet name="header">
+									Detalle Consumos Tarjeta
+								</f:facet>
+
+								<p:dataTable id="tablaCentroCostodetalle" var="gastoCentroCostoMesAnio"  resizableColumns="true" value="#{cashFlowTarjetasController.gastoCentroCostoMesAnio}"  selectionMode="single" selection="#{cashFlowTarjetasController.gastoSeleccionado}"   rowKey="#{gastoCentroCostoMesAnio.concepto}" scrollable="true" >
+
+									<p:ajax event="rowSelect" listener="#{cashFlowTarjetasController.onRowSelect}" oncomplete="PF('gastoCorrienteDialog').show()" update="cashFlowForm:gastoSeleccionadoPanel"/>
+									<p:ajax event="rowUnselect" listener="#{cashFlowTarjetasController.onRowUnselect}"  />
+
+									<h:inputHidden id="gastoId2" value="#{gastoCentroCostoMesAnio.id}" />
+
+									<p:column headerText="Tarjeta" width="40%">
+										<h:outputText value="#{gastoCentroCostoMesAnio.concepto}" />
+									</p:column>
+									<p:column headerText="Enero" width="15%" style="#{cashFlowTarjetasController.getBackgroundColumnaSeleccionada(1)}">
+										<h:outputText value="#{gastoCentroCostoMesAnio.importeMes1}">
+											<f:convertNumber type="currency" currencySymbol="$" />
+										</h:outputText>
+									</p:column>
+									<p:column headerText="Febrero" width="15%" style="#{cashFlowTarjetasController.getBackgroundColumnaSeleccionada(2)}">
+										<h:outputText value="#{gastoCentroCostoMesAnio.importeMes2}">
+											<f:convertNumber type="currency" currencySymbol="$" />
+										</h:outputText>
+									</p:column>
+									<p:column headerText="Marzo" width="15%" style="#{cashFlowTarjetasController.getBackgroundColumnaSeleccionada(3)}">
+										<h:outputText value="#{gastoCentroCostoMesAnio.importeMes3}">
+											<f:convertNumber type="currency" currencySymbol="$" />
+										</h:outputText>
+									</p:column>
+									<p:column headerText="Abril" width="15%" style="#{cashFlowTarjetasController.getBackgroundColumnaSeleccionada(4)}">
+										<h:outputText value="#{gastoCentroCostoMesAnio.importeMes4}">
+											<f:convertNumber type="currency" currencySymbol="$" />
+										</h:outputText>
+									</p:column>
+									<p:column headerText="Mayo" width="15%" style="#{cashFlowTarjetasController.getBackgroundColumnaSeleccionada(5)}">
+										<h:outputText value="#{gastoCentroCostoMesAnio.importeMes5}">
+											<f:convertNumber type="currency" currencySymbol="$" />
+										</h:outputText>
+									</p:column>
+									<p:column headerText="Junio" width="15%" style="#{cashFlowTarjetasController.getBackgroundColumnaSeleccionada(6)}">
+										<h:outputText value="#{gastoCentroCostoMesAnio.importeMes6}">
+											<f:convertNumber type="currency" currencySymbol="$" />
+										</h:outputText>
+									</p:column>
+									<p:column headerText="Julio" width="15%" style="#{cashFlowTarjetasController.getBackgroundColumnaSeleccionada(7)}">
+										<h:outputText value="#{gastoCentroCostoMesAnio.importeMes7}">
+											<f:convertNumber type="currency" currencySymbol="$" />
+										</h:outputText>
+									</p:column>
+									<p:column headerText="Agosto" width="15%" style="#{cashFlowTarjetasController.getBackgroundColumnaSeleccionada(8)}">
+										<h:outputText value="#{gastoCentroCostoMesAnio.importeMes8}">
+											<f:convertNumber type="currency" currencySymbol="$" />
+										</h:outputText>
+									</p:column>
+									<p:column headerText="Setiembre" width="15%" style="#{cashFlowTarjetasController.getBackgroundColumnaSeleccionada(9)}">
+										<h:outputText value="#{gastoCentroCostoMesAnio.importeMes9}">
+											<f:convertNumber type="currency" currencySymbol="$" />
+										</h:outputText>
+									</p:column>
+									<p:column headerText="Octubre" width="15%" style="#{cashFlowTarjetasController.getBackgroundColumnaSeleccionada(10)}">
+										<h:outputText value="#{gastoCentroCostoMesAnio.importeMes10}">
+											<f:convertNumber type="currency" currencySymbol="$" />
+										</h:outputText>
+									</p:column>
+									<p:column headerText="Noviembre" width="15%" style="#{cashFlowTarjetasController.getBackgroundColumnaSeleccionada(11)}">
+										<h:outputText value="#{gastoCentroCostoMesAnio.importeMes11}">
+											<f:convertNumber type="currency" currencySymbol="$" />
+										</h:outputText>
+									</p:column>
+									<p:column headerText="Diciembre" width="15%" style="#{cashFlowTarjetasController.getBackgroundColumnaSeleccionada(12)}">
+										<h:outputText value="#{gastoCentroCostoMesAnio.importeMes12}">
+											<f:convertNumber type="currency" currencySymbol="$" />
+										</h:outputText>
+									</p:column>
+
+								</p:dataTable>
+
+							</p:panelGrid>
+						</p:rowExpansion>
+
+					</p:dataTable>
+				</p:panelGrid>
+			</p:panel>
+
+
+
+
+				<p:dialog header="Gasto Seleccionado" widgetVar="gastoCorrienteDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false" width="400">
+					<p:panel id="gastoSeleccionadoPanel" style="text-align:center;">
+						<p:panelGrid id="gastoGridSeleccionadoPanel" columns="2" rendered="#{not empty cashFlowTarjetasController.gastoSeleccionado}" columnClasses="label,value" >
+							<h:outputText value="Descripcion Gasto" />
+							<h:outputText value="#{cashFlowTarjetasController.gastoTarjetaCredito.descripcion}"/>
+
+							<h:outputText value="Tarjeta Credito" />
+							<h:outputText value="#{cashFlowTarjetasController.gastoTarjetaCredito.tarjetaCredito.nombre}"/>
+
+
+							<h:outputText value="Fecha Compra" />
+							<h:outputText value="#{cashFlowTarjetasController.gastoTarjetaCredito.fechaCompra}">
+								<f:convertDateTime pattern="dd/MM/yyyy" />
+							</h:outputText>
+
+							<h:outputText value="Importe Total" />
+							<h:outputText value="#{cashFlowTarjetasController.gastoTarjetaCredito.importeTotal}">
+								<f:convertNumber type="currency" currencySymbol="$" />
+							</h:outputText>
+
+							<h:outputText value="Numero Cuotas" />
+							<h:outputText value="#{cashFlowTarjetasController.gastoTarjetaCredito.cantidadCuotas}"/>
+
+							<h:outputText value="Centro Costo" />
+							<h:outputText value="#{cashFlowTarjetasController.gastoTarjetaCredito.centroCosto.nombre}"/>
+
+							<br/>
+						</p:panelGrid>
+				</p:panel>
+			</p:dialog>
+
+
+
+
+
+		</h:form>
+	</ui:define>
+</ui:composition>

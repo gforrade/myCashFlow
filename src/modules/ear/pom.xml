@@ -1,0 +1,105 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>ar.com.gaf.financial</groupId>
+        <artifactId>mycashflow</artifactId>
+        <version>1.0.0</version>
+        <relativePath>../../pom.xml</relativePath>
+    </parent>
+
+    <artifactId>mycashflow-ear</artifactId>
+    <packaging>ear</packaging>
+
+
+    <name>My Personal Cashflow - Modulo Ear</name>
+
+    <dependencies>
+        <!-- My Personal Cashlfow - Commons -->
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>business</artifactId>
+                <version>${project.version}</version>
+                <type>ejb</type>
+            </dependency>
+
+        <!-- My Personal Cashlfow - Web Module -->
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>mycashflow-web</artifactId>
+                <version>${project.version}</version>
+                <type>war</type>
+            </dependency>
+    </dependencies>
+
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>1.7</version>
+                <executions>
+                    <execution>
+                        <id>package</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <tasks>
+                                <copy file="${project.build.directory}/${earName}.${project.packaging}" tofile="${weblogicUploadFolder}/${earName}.${project.packaging}" overwrite="yes" />
+                            </tasks>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>deploy-to-server</id>
+                        <phase>install</phase>
+                        <configuration>
+                            <tasks>
+                                <property environment="env"/>
+                                <taskdef name="wldeploy" classpath="${weblogic-jar-path}"
+                                         classname="weblogic.ant.taskdefs.management.WLDeploy"/>
+                                <wldeploy action="redeploy" verbose="true"
+                                          name="${earName}" user="${weblogicUser}" password="${weblogicPass}"
+                                          adminurl="${weblogicAdminUrl}"
+                                          targets="${weblogicServer}"/>
+                            </tasks>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-ear-plugin</artifactId>
+                <version>2.10</version>
+                <configuration>
+                    <earName>${earName}</earName>
+                    <applicationName>${project.artifactId}</applicationName>
+                    <version>6</version>
+                    <initializeInOrder>true</initializeInOrder>
+                    <defaultLibBundleDir>APP-INF/lib</defaultLibBundleDir>
+                    <modules>
+                        <webModule>
+                            <groupId>ar.com.gaf.financial</groupId>
+                            <artifactId>mycashflow-web</artifactId>
+                            <contextRoot>cashflow</contextRoot>
+                        </webModule>
+                        <ejbModule>
+                            <groupId>ar.com.gaf.financial</groupId>
+                            <artifactId>business</artifactId>
+                        </ejbModule>
+                    </modules>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

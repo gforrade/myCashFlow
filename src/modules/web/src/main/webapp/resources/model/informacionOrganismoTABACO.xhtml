@@ -1,0 +1,91 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+	<html xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:h="http://java.sun.com/jsf/html"
+		xmlns:p="http://primefaces.org/ui"
+		xmlns:composite="http://java.sun.com/jsf/composite">
+
+		<!-- INTERFACE -->
+		<composite:interface>
+			<composite:attribute name="id"></composite:attribute>
+			<composite:attribute name="informacionOrganismoTabaco" type="java.util.List"></composite:attribute>
+		</composite:interface>
+
+		<!-- IMPLEMENTATION -->
+<composite:implementation>
+	<p:panel>
+            <p:dataTable value="#{cc.attrs.informacionOrganismoTabaco}" var="tabaco" paginator="false" emptyMessage="No se encuentra información de TABACO cargada">
+
+
+                    <p:column headerText="Campaña" width="10%">
+                           #{tabaco.campana}                         
+                    </p:column>
+                    <p:column headerText="Provincia" width="10%">
+                           #{tabaco.provincia}                         
+                    </p:column>
+                    <p:column headerText="Apellido" width="10%">
+                           #{tabaco.apellido}                         
+                    </p:column>
+                    <p:column headerText="Nombre" width="10%">
+                           #{tabaco.nombre}                         
+                    </p:column>                                         
+                    <p:column headerText="Burley Com Kg" width="10%">
+                           #{tabaco.kgComBurley}                         
+                    </p:column>
+                    <p:column headerText="Criollo Com Kg" width="10%">
+                           #{tabaco.kgComCriollo}                         
+                    </p:column>
+                    <p:column headerText="Burley Kg" width="10%">
+                           #{tabaco.kgBurley}                         
+                    </p:column>
+                    <p:column headerText="Criollo Arg Kg" width="10%">
+                           #{tabaco.kgCriollo}                         
+                    </p:column>
+                    <p:column headerText="Virginia Kg" width="10%">
+                           #{tabaco.kgVirginia}                         
+                    </p:column>
+                    <p:column headerText="Total Kgs" width="10%">
+                           #{tabaco.totalKgs}                         
+                    </p:column>
+<!--                      
+                    <p:column headerText="Plan" width="10%">
+                           #{tabaco.plan}                         
+                    </p:column>
+                    <p:column headerText="Hectarias Cosecha Estado" width="10%">
+                           #{tabaco.hasCosecEst}                         
+                    </p:column>
+                    <p:column headerText="Hecatrias Perdidas" width="10%">
+                           #{tabaco.hasPerdidas}                         
+                    </p:column>
+                    <p:column headerText="Rendimiento Kg Cosechados" width="10%">
+                           #{tabaco.rendKgCos}                         
+                    </p:column>
+                 
+                    <p:column headerText="Número de Calle" width="10%">
+                           #{tabaco.calleNumero}                         
+                    </p:column>
+                    <p:column headerText="Localidad" width="10%">
+                           #{tabaco.localidad}                         
+                    </p:column>
+                    <p:column headerText="Departamento" width="10%">
+                           #{tabaco.dpto}                         
+                    </p:column>
+                    <p:column headerText="Nacionalidad" width="10%">
+                           #{tabaco.nacionalidad}                         
+                    </p:column>                    
+                    <p:column headerText="Código Postal" width="10%">
+                           #{tabaco.codigoPostal}                         
+                    </p:column>
+                    <p:column headerText="Cuit" width="10%">
+                           #{tabaco.cuit}                         
+                    </p:column>                    
+                    <p:column headerText="Fecha de Nacimiento" width="10%">
+                           #{tabaco.fechaNacimiento}                         
+                    </p:column> 
+ -->                            
+           </p:dataTable>
+     </p:panel> 
+</composite:implementation>
+
+</html>

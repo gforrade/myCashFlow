@@ -1,0 +1,90 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:f="http://java.sun.com/jsf/core"
+		xmlns:h="http://java.sun.com/jsf/html"
+		xmlns:ui="http://java.sun.com/jsf/facelets"
+		xmlns:p="http://primefaces.org/ui"
+		xmlns:form="http://java.sun.com/jsf/composite/form"
+		xmlns:model="http://java.sun.com/jsf/composite/model"
+		template="/WEB-INF/templates/layout.xhtml"
+		xmlns:composite="http://java.sun.com/jsf/composite"
+        xmlns:pe="http://primefaces.org/mobile">
+
+		<composite:interface>
+			<composite:attribute name="actividad" type="ar.com.datastar.magyp.rica.model.entities.Actividad" />
+		   <composite:attribute name="semilla" type="ar.com.datastar.magyp.rica.model.entities.Semilla" />
+		   <composite:attribute name="semillas" type="java.util.List" />
+		   <composite:attribute name="coberturaSeguro" type="ar.com.datastar.magyp.rica.model.entities.CoberturaSeguro" />
+		   <composite:attribute name="formId"  />
+		</composite:interface>
+
+		<composite:implementation>
+			<p:outputPanel autoUpdate="true" >
+					<p:panel header="Actividad" id="#{cc.id}" rendered="#{loteController.hasActividad()}">
+						<p:outputLabel for="infoSemilla" value="Información sobre semilla" />
+						<br />
+						<p:panelGrid id="panelActividadInfo" columns="4" layout="grid">
+							<p:outputLabel value="" />
+							<p:inputText styleClass="pf-input width-100" id="infoSemilla" value="#{cc.attrs.actividad.tipo}" readonly="true"/>
+							<p:outputLabel for="infoCampana" value="Campaña" />
+							<p:inputText styleClass="pf-input width-100" id="infoCampana" value="2015" readonly="true"/>
+						</p:panelGrid>
+						<br />
+						<p:panelGrid id="panelActividadSemillaLabels"	columns="6" layout="grid">
+							<p:outputLabel value="" />
+							<h:outputLabel for="actividadSemillaEspecie" value="Especie" />
+							<h:outputLabel for="actividadSemillaVariedad" value="Variedad" />
+							<h:outputLabel for="actividadSemillaCantKg" value="Cantidad en KG" />
+							<h:outputLabel for="actividadSemillaEsperado" value="Rinde Esperado Kg/ha" />
+							<p:outputLabel value="" />
+						</p:panelGrid>
+						<p:panelGrid id="panelActividadSemillaInputs" columns="6" layout="grid">
+							<p:outputLabel value="" />
+			
+							<h:selectOneMenu id="actividadSemillaEspecie" converter="especieConverter" value="#{cc.attrs.semilla.especie}" effect="fold" editable="true" valueChangeListener="#{actividadController.especieChanged}" styleClass="pf-input width-100" >			            
+								<f:selectItem  itemValue="#{null}" itemLabel="Seleccionar..." noSelectionOption="true" />
+								<f:selectItems value="#{actividadController.especies}" var="especie" itemLabel="#{especie.nombre}" itemValue="#{especie}" />
+								<f:ajax event="valueChange" update="actividadSemillaVariedad"/>
+							</h:selectOneMenu>
+							
+							<h:selectOneMenu id="actividadSemillaVariedad" converter="variedadConverter" value="#{cc.attrs.semilla.variedad}" effect="fold" editable="true" styleClass="pf-input width-100">
+					            <f:selectItem  itemValue="#{null}" itemLabel="Seleccionar..." />					            					            				           
+								<f:selectItems value="#{actividadController.variedades}" var="variedad" itemLabel="#{variedad.cultivar}" itemValue="#{variedad}" />								
+							</h:selectOneMenu>
+					     
+					     	<p:inputText id="actividadSemillaCantKg" styleClass="pf-input width-100" value="#{cc.attrs.semilla.cantidadKg}" onkeypress="validateNumericInput(event, this.text)"/>
+							<p:inputText id="actividadSemillaEsperado" styleClass="pf-input width-100" value="#{cc.attrs.semilla.rindeEsperado}" onkeypress="validateNumericInput(event, this.text)"/>
+							<p:commandButton resetValues="true" value="Agregar" action="#{actividadController.saveSemilla()}" update="tabla"/>
+						</p:panelGrid>
+						<br />
+						<p:outputPanel autoUpdate="true" >
+						<p:dataTable id="tabla" value="#{cc.attrs.semillas}" var="semilla" paginator="false" emptyMessage="No se encuentran Semillas cargadas">
+							<p:column headerText="Especie">
+								#{semilla.especie.nombre}
+							</p:column>
+							<p:column headerText="Variedad">
+								#{semilla.variedad.cultivar}
+							</p:column>
+							<p:column headerText="Cantidad en Kg">
+								#{semilla.cantidadKg}
+							</p:column>
+							<p:column headerText="Rinde Esperado Kg/ha" width="20%">
+								#{semilla.rindeEsperado}
+							</p:column>
+							<p:column headerText="Origen de Semilla" width="10%">
+								<p:commandButton value="Detalles" action="#{productorController.goOrigenSemilla}" actionListener="#{actividadController.selectSemilla(semilla)}" update="#{cc.attrs.formId}" resetValues="true" />
+							</p:column>
+							<p:column headerText="Eliminar Semilla" width="10%">
+								<p:commandButton value="Eliminar" action="#{actividadController.removeSemilla(semilla.id)}" update="tabla"/>
+							</p:column>
+						</p:dataTable>
+						<br />
+							<p:panelGrid id="panelActividadSemillaBotones" columns="2" layout="grid" rendered="#{actividadController.hasActividad()}">
+								<p:commandButton value="Cobertura Seguro" action="#{productorController.goCoberturaSeguro()}" actionListener="#{actividadController.showPanelSeguro()}" update="#{cc.attrs.formId}" />
+								<p:commandButton value="Volver" action="#{productorController.goEstablecimiento}" update="#{cc.attrs.formId}"/>
+							</p:panelGrid>
+						</p:outputPanel>
+				</p:panel>
+			</p:outputPanel>
+			
+		</composite:implementation>
+</ui:composition>

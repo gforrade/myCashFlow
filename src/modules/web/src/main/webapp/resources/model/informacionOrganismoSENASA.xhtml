@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+	<html xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:h="http://java.sun.com/jsf/html"
+		xmlns:p="http://primefaces.org/ui"
+		xmlns:f="http://java.sun.com/jsf/core"
+		xmlns:composite="http://java.sun.com/jsf/composite">
+
+		<!-- INTERFACE -->
+		<composite:interface>
+			<composite:attribute name="id"></composite:attribute>
+			<composite:attribute name="informacionOrganismoSenasa" type="java.util.List"></composite:attribute>
+		</composite:interface>
+
+		<!-- IMPLEMENTATION -->
+		<composite:implementation>
+		     <p:panel>
+            <p:dataTable value="#{cc.attrs.informacionOrganismoSenasa}" var="senasa" paginator="false" emptyMessage="No se encuentra información de SENASA cargada">
+					<p:column headerText="Renspa">
+                            #{senasa.renspa}
+                    </p:column> 	
+                    <p:column headerText="Tipo Explotación">
+                            #{senasa.tipoExplotacion}
+                    </p:column>
+                    <p:column headerText="Fecha Inscripción">                    		                        
+ 							<h:outputText value="#{senasa.fechaInscripcion}">
+										<f:convertDateTime pattern="dd/MM/yyyy"/>
+							</h:outputText>
+                    </p:column>
+                    <p:column headerText="Fecha Reinscripción">
+                            <h:outputText value="#{senasa.fechaReInscripcion}">
+										<f:convertDateTime pattern="dd/MM/yyyy"/>
+							</h:outputText>
+                    </p:column>
+                    <p:column headerText="Fecha de Baja">
+                            <h:outputText value="#{senasa.fechaBaja}">
+										<f:convertDateTime pattern="dd/MM/yyyy"/>
+							</h:outputText>                           
+                    </p:column>
+                    <p:column headerText="RI" rendered="false">
+                            #{senasa.ri}
+                    </p:column>                    
+                    <p:column headerText="Número de Establecimiento" rendered="false">
+                            #{senasa.establecimientoId}
+                    </p:column>                                                               
+           </p:dataTable>
+     </p:panel>        
+		
+		</composite:implementation>
+
+</html>

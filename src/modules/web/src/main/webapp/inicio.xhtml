@@ -1,0 +1,30 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:model="http://java.sun.com/jsf/composite/model"
+	template="/WEB-INF/templates/layout.xhtml">
+
+	<ui:define name="title">
+		MAGyP - Agricultura - #{msgs.ri_title}
+	</ui:define>
+
+	<ui:define name="content">
+		<h1>#{msgs.ri_header} - DDJJ Productor</h1>
+		<h:form id="riForm">
+			<p:panelGrid columns="2" layout="grid" id="menuInicio">
+				<h:commandLink action="registroIntegrado?faces-redirect=true" styleClass="button-actividad">
+					<p:graphicImage name="botonRedondo.png" library="images" />
+					Registro Integrado de la Cadena Agropecuaria (RICA)
+				</h:commandLink>
+				<br />
+				<br />
+				<h:commandLink action="..." styleClass="button-actividad">
+					<p:graphicImage name="botonRedondo.png" library="images" />
+					Régimen de Información Agrícola (RIA)
+				</h:commandLink>
+			</p:panelGrid>
+		</h:form>
+	</ui:define>
+</ui:composition>

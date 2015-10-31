@@ -1,0 +1,75 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>ar.com.gaf.financial</groupId>
+		<artifactId>mycashflow</artifactId>
+		<version>1.0.0</version>
+		<relativePath>../../pom.xml</relativePath>
+	</parent>
+
+	<artifactId>mycashflow-web</artifactId>
+
+	<packaging>war</packaging>
+
+
+	<name>My Personal Cashlfow - Web Module</name>
+
+
+	<dependencies>
+
+
+		<!-- My Personal Cashlfow - Commons -->
+		<dependency>
+			<groupId>ar.com.gaf.financial</groupId>
+			<artifactId>common</artifactId>
+		</dependency>
+
+		<!-- My Personal Cashlfow - Model -->
+		<dependency>
+			<groupId>ar.com.gaf.financial</groupId>
+			<artifactId>model</artifactId>
+		</dependency>
+
+		<!-- My Personal Cashlfow - Interfaces -->
+		<dependency>
+			<groupId>ar.com.gaf.financial</groupId>
+			<artifactId>interfaces</artifactId>
+		</dependency>
+
+
+		<dependency>
+			<groupId>org.primefaces</groupId>
+			<artifactId>primefaces</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-logging</groupId>
+			<artifactId>commons-logging</artifactId>
+			<scope>provided</scope> <!-- scope provided: el EAR se encarga de incluirlo en el classpath, así
+				que con esto evitamos que se incluya en WEB-INF/lib -->
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<scope>provided</scope> <!-- scope provided: el EAR se encarga de incluirlo en el classpath, así
+				que con esto evitamos que se incluya en WEB-INF/lib -->
+		</dependency>
+
+
+	</dependencies>
+
+	<build>
+		<finalName>${project.artifactId}</finalName>
+
+		<plugins>
+			<plugin>
+				<artifactId>maven-war-plugin</artifactId>
+				<configuration>
+					<filteringDeploymentDescriptors>true</filteringDeploymentDescriptors>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>

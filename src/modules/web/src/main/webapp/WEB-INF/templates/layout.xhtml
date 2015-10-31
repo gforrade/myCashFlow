@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title><ui:insert name="title">My Cashflow</ui:insert></title>
+	<script src="http://maps.google.com/maps/api/js?sensor=true" type="text/javascript"></script>
+	<meta name="viewport" content="width=device-width" />
+
+<!--[if lt IE 7.]>
+	<script defer type="text/javascript" src="#{resource['js:pngfix.js']}"></script>
+<![endif]-->
+
+	<link rel="shortcut icon" href="#{resource['images:favicon.ico']}" />
+
+	<h:outputStylesheet name="estilos_minagri3x.css" library="css" />
+	<h:outputStylesheet name="estilos_menu_desplegablex.css" library="css" />
+	<h:outputStylesheet name="estilos_magyp_botonerax.css" library="css" />
+	<h:outputStylesheet name="estilo.css" library="css" />
+	<h:outputStylesheet name="style.css" library="css" />
+	<h:outputStylesheet name="primefaces.5.2.custom.css" library="css" />
+
+	<h:outputScript name="layout.js" library="js" />
+
+	<ui:insert name="head" />
+</h:head>
+<h:body style="background-color: #eef2f2; text-align:center;">
+
+
+	<p:ajaxStatus onstart="PF('ajaxStatus').show()" oncomplete="PF('ajaxStatus').hide()" />
+	<p:dialog widgetVar="ajaxStatus" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+		<p:graphicImage value="#{resource['images:ajax-loader.gif']}" />
+	</p:dialog>
+	<p:ajaxExceptionHandler type="javax.faces.application.ViewExpiredException" update="viewExpiredDialog" onexception="PF('viewExpiredDialog').show();" />
+	<p:ajaxExceptionHandler update="exceptionDialog" onexception="PF('exceptionDialog').show();" />
+	<p:dialog id="viewExpiredDialog" widgetVar="viewExpiredDialog" header="Ha caducado la sesión" modal="true">
+        Superó el tiempo máximo de espera del sistema. Por favor, recargue la página.<br />
+		<p:button onclick="document.location.href = document.location.href; return false;" value="Recargar la página" />
+	</p:dialog>
+	<p:dialog id="exceptionDialog" widgetVar="exceptionDialog" header="Ha ocurrido un error en el sistema" modal="true">
+        Contactese con la mesa de ayuda del ministerio o intente más tarde.
+	</p:dialog>
+
+	<!-- Inicio body - inicio -->
+	<div class="todocon" align="left" style="text-align: left;">
+		<ui:insert name="header">
+			<ui:include src="header.xhtml" />
+		</ui:insert>
+
+		<ui:insert name="mainMenu">
+			<ui:include src="mainMenu.xhtml" />
+		</ui:insert>
+
+
+		<div id="" style="-position: relative; margin-left: 11px;">
+			<div id="tablamaqueta">
+				<ui:insert name="contentWrapper">
+					<div id="cuerpo" style="background: #fff; min-height: 800px; margin: 5px;">
+						<h:form prependId="false">
+							<p:outputPanel autoUpdate="true">
+								<h:messages globalOnly="true" styleClass="msgs-box no-style" style="display: none;"
+								    infoClass="msgs-item msgs-item-success" warnClass="msgs-item msgs-item-warn"
+									errorClass="msgs-item msgs-item-error" fatalClass="msgs-item msgs-item-error" />
+								<script type="text/javascript"> formatMessages(); </script>
+							</p:outputPanel>
+						</h:form>
+						
+						<ui:insert name="content" />
+					</div>
+				</ui:insert>
+			</div>
+			<br style="clear: both;" />
+			
+			<ui:insert name="footer">
+				<ui:include src="footer.xhtml" />
+			</ui:insert>
+		</div>
+	</div>
+</h:body>
+</html>

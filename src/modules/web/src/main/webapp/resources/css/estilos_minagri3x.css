@@ -1,0 +1,659 @@
+@charset "utf-8";
+/* CSS resetear */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, font, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend, caption, input, textarea, th, tfoot, thead /*, tbody, table, tr, td */ {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        outline: 0;
+     	/*font-style: inherit;
+        font-size: 1em;
+        font-family: inherit;*/
+        vertical-align: baseline;	
+}
+
+body {
+        line-height: 1;
+        color: black;
+        background:#EDF0F1;
+	font:12px Arial, Helvetica, sans-serif;
+	text-align:center; 
+		
+}
+
+.todocon {
+	width:100%;
+	vertical-align:top;
+	left:50%;
+	right:50%;
+	margin: 0px auto;
+	}
+	
+ul {
+        list-style: none;	
+}
+
+/* NO SÉ A QUE CORRESPONDE ESTO, LO DESHABILITO POR QUE ESTORBA EN LA MAQUETACIÓN DE LOS PORTALES!
+table {
+        border-collapse: separate;
+        border-spacing: 0;
+}
+*/
+caption, th, td {
+        text-align: left;
+        font-weight: normal;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+        content: "";
+}
+blockquote, q {
+        quotes: "" "";
+}
+a, a:hover { text-decoration:none;
+}
+a:hover {color:#197285;
+}
+
+#contenedor {
+	text-align:left; 
+	width:980px; 
+	margin-right: auto; 
+	margin-left: auto;
+	
+		}
+.espacioder {
+	width:10px;
+	float:left;
+	height:1230px;
+	background:url("#{resource['css:magyp-images/bck_sombra_pagina.png']}");
+	}
+.espacioizq {
+	width:10px;
+	float:left;
+	height:1230px;
+	background:url("#{resource['css:magyp-images/bck_sombra_pagina_izq.png']}");
+		}
+		
+/* Esto cambios tuve que hacer para que sea aceptado por los nuevos navegadores pero el float esta generando algún problema en los viejos exploradores ie6, ie7, ie8 y la sombra no es dinámica  */
+
+.espacioderportal {
+	width:10px;
+	float:right;
+	min-height:30px;
+
+	/*background:url("#{resource['css:magyp-images/bck_sombra_pagina.png']}");*/
+	}
+	
+.espacioizqportal {
+	width:10px;
+	float:left;
+	min-height:30px;
+	
+	/*background:url("#{resource['css:magyp-images/bck_sombra_pagina_izq.png']}");*/
+	}
+#menudinamico {
+	/*@background:url("#{resource['css:magyp-images/menudinamicoie.png']}");*/
+	background:url("#{resource['css:magyp-images/menudinamico.png']}");
+	height:25px;
+	width:100%;
+	position:relative;
+	z-index:1;
+	@top:auto; /* esto genera conflictos con el ie 5.5  hasta ahora no lo pude solucionar del todo */
+	margin-left:1px;
+	margin-top:3px;
+	/*box-shadow: 1px 0px 7px 0px #BDBDBD;
+	//-webkit-box-shadow: 1px 0px 7px 0px #BDBDBD;
+	//-moz-box-shadow: 1px 0px 7px 0px #BDBDBD;
+	//-o-box-shadow: 1px 0px 7px 0px #BDBDBD;*/
+	}
+#menuherramientas {
+	text-align:right;
+	padding-top:1px;
+	font:11px Arial, Helvetica, sans-serif;
+	margin-right:10px;
+	height:25px;
+	width:195px;
+	float: right;
+	}
+	
+#tablamaqueta {
+	background:#FFFFFF;
+	padding-top:0px;
+	float:left;
+	box-shadow: 1px 0px 7px 0px #BDBDBD;
+	-webkit-box-shadow: 1px 0px 7px 0px #BDBDBD;
+	-moz-box-shadow: 1px 0px 7px 0px #BDBDBD;
+	-o-box-shadow: 1px 0px 7px 0px #BDBDBD;
+	}
+	
+#tablaniidea {
+	background:#FFFFFF;
+	/*border:50px double orange;
+	-moz-border-image:url("#{resource['css:magyp-images/bck_sombra_pagina.png']}") 25 30 10 20 round;
+	-webkit-border-image:url("#{resource['css:magyp-images/bck_sombra_pagina.png']}") 25 30 10 20 round;
+	border-image:url("#{resource['css:magyp-images/bck_sombra_pagina.png']}") 25 30 10 20 round;*/
+	}
+
+/* fin cambios */
+		
+#cuerpo1 {
+	width:960px;
+	min-height: 950px;
+	text-align:left;
+	float:left;
+	background:#FFF;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:12px;
+		}
+#cuerpo1  #noticia_destacada{
+	width:700px;
+	height:316px ;
+	float: left;
+	background:#E6EBEC;
+	font-family:Arial, Helvetica, sans-serif;
+			}
+		
+#cuerpo1 #noticia_destacada #fotodestacada {
+	width:425px;
+	height:286px;
+	float: left;
+	margin:15px 20px 15px 10px ;
+
+			}
+#cuerpo1 #fotodestacada .slideshow{
+	float:left; 
+	z-index:1; 
+	width:425px; 
+	height:286px; 
+
+			}
+			
+			
+#cuerpo1 #fotodestacada .slideshow{
+	float:left; 
+	z-index:1; 
+	width:425px; 
+	height:286px; 
+	
+
+			}
+#cuerpo1 #fotodestacada img{
+	width:425px; 
+	height:286px; 
+			}
+#cuerpo1 #fotodestacada .epigrafe{
+color:#7F7F7F;
+font:11px Arial, Helvetica, sans-serif;
+
+text-align:left;
+margin:0;
+
+			}
+#cuerpo1 #fotodestacada .epigrafe a:hover, #cuerpo1 #fotodestacada .epigrafe a{
+text-decoration:none !important;
+			}
+			
+			
+
+#cuerpo1 #noticia_destacada #info{
+	float:left; 
+	width:235px; 
+	height:286px; 
+	margin:15px 0 0 0;
+	}
+	
+#cuerpo1 #noticia_destacada #info .fecha {
+	color:#999; 
+	font-size:12px
+	}
+
+
+#cuerpo1 #noticia_destacada #info .titulo h1{
+	color:#3CA4A4;
+	font-size:22px;
+	line-height:22px;
+	font-weight:normal;
+	margin:5px 0;
+	font-family: 'abelregular', sans-serif;
+			}
+
+#cuerpo1 #noticia_destacada #info .titulo h1 a{
+	color:#3CA4A4;
+	text-decoration:none;
+
+			}
+#cuerpo1 #noticia_destacada #info .titulo h1 a:hover{
+	color:#037679;
+	text-decoration:none;
+
+			}
+#cuerpo1 #noticia_destacada #info .texto{
+	float: left;
+	margin-bottom:10px;
+
+	font-size:13px;
+	color:#333;
+	height:147px;
+			}
+#cuerpo1 #noticia_destacada #info .epigrafe{
+color:#7F7F7F;
+font-size:11px;
+margin-top:10px
+			}
+			
+#cuerpo1 #noticia_destacada #info #pasanoticias{
+	width:205px;
+	height:20px;
+	background:#EEF1F2;
+	margin:10px 0 0 10px;
+	-webkit-border-radius: 5px;
+-moz-border-radius: 5px;
+border-radius: 5px;
+padding:5px;
+	
+			}
+				
+#cuerpo1  #comunicados{
+	width:240px;
+	height:311px ;
+	float: left;
+	padding:0 10px 5px 10px;
+	background:#4DBFBF;
+				}
+
+
+#cuerpo1  #comunicados  .titulo{
+
+	float: left;
+	font-family: 'abelregular', sans-serif;
+	font-size:16px;
+	color:#CCEBEB;
+	margin:13px 0 0 0;
+
+			}
+#cuerpo1  #comunicados  .txt ul{
+margin:0;
+padding:0;
+
+
+			}		
+#cuerpo1  #comunicados  .txt ul li {
+
+    border-bottom: 1px dotted #C4E6E3;
+    float: left;
+   font-size:11px;
+    height: auto;
+ 
+    margin: 8px 20px 0 18px;
+    padding: 0 0 5px 0;
+    width: 220px;
+	color:#333;
+	list-style-image:url("#{resource['css:magyp-images/ico_lista_flecha.png']}");
+	
+	
+}
+	
+					
+#cuerpo1  #comunicados  .txt ul li a{
+color:#fff;
+text-decoration: none;
+ font: 12px arial;
+			}		
+#cuerpo1  #comunicados  .txt ul li a:hover{
+color:#99FFFF;
+text-decoration:none;
+ font: 12px arial;
+			}
+
+
+			
+#cuerpo1  .masinfo a{
+	width:43px;
+	height:19px;
+	float: right;
+	background: url("#{resource['css:magyp-images/bt_mas_info_bck_off.png']}");
+
+			}
+#cuerpo1  .masinfo a:hover{
+	width:43px;
+	height:19px;
+	float: right;
+
+	background: url("#{resource['css:magyp-images/bt_mas_info_bck_on.png']}");
+
+			}
+			
+			
+.floatleft {
+	float: left;
+	width:auto;
+	
+			}
+/*estilos de antes*/			
+			
+			
+			
+			
+			
+
+
+#cuerpo1  #multimedia{
+	width:326px !important;
+	width:326px;
+	width/**/:/**/348px;
+	
+	height:220px;
+	float: left;
+	padding:10px;
+	background:#EEEEEE;
+	margin:0;
+	border:1px solid #E4E4E4;
+	border-top:none;
+	
+			}				
+#cuerpo1  #pestania_multimedia1{
+	width:86px;
+	height:19px;
+	float: left;
+	margin:15px 0 0 0;
+			}
+#cuerpo1  #multimedia #izq{
+	width:154px;
+	height:205px;
+	float: left;
+	margin:0 6px 0 0;
+	background:#fff;
+	padding:5px 3px 3px 3px;
+	
+			}
+
+#cuerpo1  #multimedia #der{
+	width:148px;
+	height:220px;
+	float: left;
+	margin:0 0 0 10px ;
+			}
+#cuerpo1  #multimedia #der .texto{
+	width:148px;
+	height:auto;
+	border-bottom:1px solid #fff;
+	padding:0 0 3px	0;
+	margin:0 0 3px 0 ;
+			}
+	
+#cuerpo1  .banner{
+	width:352px;
+	height:auto;
+	float: left;
+	padding:0;
+	margin: 10px 0 0 15px; 
+			}		
+	
+
+
+#cuerpo1  #bannerslider{
+	width:940px;
+	height:90px; 
+	float:left; 
+	padding:10px;
+	margin:10px 0 10px 0;
+	background:#DBDBDB;
+			}	
+
+#cuerpo1  #contacto{
+	width:333px !important;
+	width:333px;
+	width/**/:/**/348px;
+	height:90px;
+	float: left;
+	padding:5px 5px 0 10px;
+	margin: 10px 0 0 15px; 
+	background:#EEF2F2;
+			}		
+#cuerpo1  #contacto #texto{
+	width:165px;
+	height:auto;
+	float: left;
+			}
+#cuerpo1  #contacto #texto a{
+color:#2CBA9D;
+			}
+#cuerpo1  #contacto #imagen{
+	width:159px;
+	height:79px;
+	float: left;
+	margin: 4px 0 0 7px;
+			}
+#cuerpo1 #acceso_rapido{
+	
+	height:210px;
+	padding:10px 10px 0 10px;
+	margin:10px 0 0 0;
+	background:url("#{resource['css:magyp-images/bck_acceso_rapido.png']}");
+	font-size:11px
+	
+		}
+#cuerpo1 #acceso_rapido .textos{
+	width:220px;
+	height:200px;
+	margin:0 10px 0 0;
+	border-right:1px solid #CCCCCC;
+	float:left;
+	color:#666;
+		}
+#cuerpo1 #acceso_rapido .textos p{
+margin:0 0 3px 0;
+		}
+#cuerpo1 #acceso_rapido .textos a{
+text-decoration:none;
+color:#608286;
+		}
+#cuerpo1 #acceso_rapido .textos a:hover{
+text-decoration:none;
+color:#01BEBA;
+		}
+
+#pie{
+	padding:0;
+	width:980px;
+	height:39px;
+	text-align:center;
+	margin: 0 auto 10px auto;
+	color:#FFFFFF;
+	
+	
+	}
+
+ #pie #content{
+	width:960px;
+	height:28px;
+	float:left;
+	text-align:center;
+	margin:0;
+	background: url("#{resource['css:magyp-images/bck_botonera.jpg']}");
+	font-size:11px;
+	color:#fff;
+	font-family: arial, sans-serif;
+	line-height:12px;
+	padding-top:10px;
+	
+	}
+
+#pieportal{
+	display:inline-block;
+	padding:0;
+	width:980px;
+	height:39px;
+	text-align:center;
+	margin-bottom:10px;
+	@margin-left:-10px;
+	margin-left:-10px;
+	margin-right:auto;
+	margin-top:0;   
+	color:#FFFFFF;
+	}
+
+#pieportal #content{
+	float: right;
+	width:960px;
+	height:28px;
+	/*border-bottom:  1px solid #000;*/
+	text-align:center;
+	margin:0;
+	background: url("#{resource['css:magyp-images/bck_botonera.jpg']}");
+	font-size:11px;
+	color:#fff;
+	font-family: arial, sans-serif;
+	line-height:12px;
+	padding-top:10px;	
+	}
+
+#cuerpo1 #multimediales {
+		/*width:510px; se saca para borrar el bloque de boletin*/ 
+	float: left;
+	padding:10px 0 0 0 ;
+	margin:0 0 0 10px
+			}
+#cuerpo1  #multimediadiales .text{
+	width:154px;
+	height:auto;
+	margin:50px 0 0 0;
+	text-align:center;
+	color:#4AC1E0;
+			}
+#cuerpo1 #multimediales #videos {
+	width:415px;/*width: se cambia de 239px para borrar el bloque de boletin*/ 
+	height:170px;
+	float: left;
+	padding:5px 0 5px 8px ;
+	border:1PX solid #E4E4E4;
+			}
+#cuerpo1 #multimediales .titulosmultimedia {
+	width:230px;
+	height:30px;
+	float: left;
+	
+			}
+#cuerpo1 #multimediales .nombre  {
+	float: left;
+	width:auto;
+	height:20px;
+
+	padding:0 3px;
+	-webkit-border-radius: 3px;
+-moz-border-radius: 3px;
+border-radius: 3px;
+background:#69C2C4;
+font-family: 'abelregular', sans-serif;
+	font-size:16px;
+	color:#FFF;
+	
+			}
+#cuerpo1 #multimediales #audio {
+	width:240px;
+	height:170px;
+	float: left;
+	padding:5PX;
+	margin:0 0 0 8px;
+	border:1PX solid #E4E4E4;
+	
+	
+			}
+			
+.discursos {
+	margin: 0 0 0 15px;
+	padding:0 ;
+	float:left;
+	font:12px Arial, Helvetica, sans-serif;
+
+	}
+.discursos ul li{
+	color:#333;
+	margin:0;
+	padding:0;
+}
+.discursos ul li a{
+	color:#1A7C95;
+	text-decoration:none
+	
+}
+.discursos ul li a:hover{
+	color:#666;
+	text-decoration:none
+	
+}
+
+#cuerpo1 #destacados {
+	width:426px;
+	height:256px;
+	float: left;
+	margin:10px 0 0 10px;
+	border:1px solid #E4E4E4;
+	overflow:hidden
+
+			}
+
+
+#cuerpo1  #destacados .tituloppal{
+
+	float: left;
+	font-family: 'abelregular', sans-serif;
+	font-size:19px;
+	color:#30CFDC;
+	margin:5PX 0 0 10PX;
+
+			}
+#cuerpo1 #guia_tramites {
+	width:428px;
+	height:165px;
+	float: left;
+	margin:10px 8px 0 10px;
+	background: url("#{resource['css:magyp-images/bck_guia_tramites.png']}");
+}
+#cuerpo1 #guia_tramites .titulo{
+	width:428px;
+	height:32px;
+	float: left;
+	background: url("#{resource['css:magyp-images/tit_guia_tramites.png']}");
+			}
+#cuerpo1 #guia_tramites .masinfo a{
+	width:75px;
+	height:21px;
+	float: right;
+	background: url("#{resource['css:magyp-images/bt_mas_visitados_off.png']}");
+	margin:5px 5px 0 0;
+
+			}
+
+#cuerpo1 #guia_tramites .masinfo a:hover{
+	width:75px;
+	height:21px;
+	float: right;
+	background: url("#{resource['css:magyp-images/bt_mas_visitados_on.png']}");
+
+			}	
+#cuerpo1 #guia_tramites ul {
+	margin:5px 0 0 0;
+	padding:0;
+			}	
+#cuerpo1 #guia_tramites ul li{
+	 border-bottom: 1px dotted #28A4C2;
+    float: left;
+   font-size:12px;
+    height: auto;
+ 
+    margin: 4px 15px 0 35px;
+    padding: 0 0 5px 0;
+    width: 380px;
+	color:#333;
+	list-style-image:url("#{resource['css:magyp-images/ico_tramites.png']}");
+	
+			}	
+#banner_contenedor{
+	}	

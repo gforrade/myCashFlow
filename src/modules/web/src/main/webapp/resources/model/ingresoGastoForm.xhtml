@@ -1,0 +1,33 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:p="http://primefaces.org/ui"
+				xmlns:model="http://java.sun.com/jsf/composite/model"
+				template="/WEB-INF/templates/layout.xhtml">
+
+	<ui:define name="title">
+		My Personal Cashflow
+	</ui:define>
+
+	<ui:define name="content">
+		<h1>Ingreso Nuevo Gasto</h1>
+		<h:form id="formGasto">
+
+			<p:panel header="Datos Gasto">
+				<p:panelGrid columns="2" layout="grid" >
+					<h:outputLabel for="centroCosto" value="Centro Costo" />
+					<p:inputText styleClass="pf-input width-100" id="centroCosto" label="Centro Costo"/>
+					<h:outputLabel for="tipoGasto" value="Tipo Gasto" />
+					<p:inputText styleClass="pf-input width-100" id="tipoGasto" label="Tipo Gasto"/>
+					<h:outputLabel for="fechaGasto" value="Tipo Gasto" />
+					<p:inputText styleClass="pf-input width-100" id="fechaGasto" label="Fecha Gasto"/>
+				</p:panelGrid>
+				<br />
+				<br />
+				<b/>
+			</p:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>
+

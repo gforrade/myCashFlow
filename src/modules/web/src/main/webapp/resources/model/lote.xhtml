@@ -1,0 +1,365 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+		"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:p="http://primefaces.org/ui"
+	  xmlns:composite="http://java.sun.com/jsf/composite">
+
+<!-- INTERFACE -->
+<composite:interface>
+	<composite:attribute name="establecimiento" type="ar.com.datastar.magyp.rica.model.entities.Establecimiento" />
+	<composite:attribute name="lote" type="ar.com.datastar.magyp.rica.model.entities.Lote" />
+	<composite:attribute name="relacionTierra" type="ar.com.datastar.magyp.rica.model.entities.RelacionTierra"></composite:attribute>
+	<composite:attribute name="formId" />
+</composite:interface>
+
+<!-- IMPLEMENTATION -->
+<composite:implementation>
+
+	<p:panel header="Establecimiento"
+			 id="panelEstablecimientoGeorreferenciacion">
+		<p:dataTable
+				value="#{cc.attrs.establecimiento}"
+				var="establecimiento">
+			<p:columnGroup type="header">
+				<p:row>
+					<p:column rowspan="2" headerText="Código de Identificación" rendered="false" />
+					<p:column rowspan="2" headerText="Nombre del Establecimiento" />
+					<p:column colspan="2" headerText="Georreferenciación" />
+				</p:row>
+				<p:row>
+					<p:column headerText="Latitud" />
+					<p:column headerText="Longitud" />
+				</p:row>
+			</p:columnGroup>
+			<p:column rendered="false">
+				#{establecimiento.codigoIdentificacion.ri}
+			</p:column>
+			<p:column>
+				#{establecimiento.nombre}
+			</p:column>
+			<p:column colspan="2">
+				<p:dataTable
+						value="#{cc.attrs.establecimiento}"
+						var="establecimiento">
+					<p:column>
+						#{establecimiento.geoReferencia.latitud}
+					</p:column>
+					<p:column>
+						#{establecimiento.geoReferencia.longitud}
+					</p:column>
+				</p:dataTable>
+			</p:column>
+		</p:dataTable>
+
+	</p:panel>
+	<br />
+	<p:panel  header="Lote por Establecimiento" id="lotePorEstablecimientoPanel">
+
+		<p:dataTable id="lotes"	value="#{cc.attrs.lote}" var="lote" emptyMessage="No se encuentran Lote cargados">
+			<p:columnGroup type="header">
+				<p:row>
+					<p:column rowspan="3" headerText="Código de Identificación" width="15%" />
+					<p:column rowspan="3" headerText="Nombre del Lote" width="15%"/>
+					<p:column colspan="3" headerText="Georreferenciación" width="60%"/>
+					<p:column rowspan="3" headerText="Definir Puntos" width="10%"/>
+
+				</p:row>
+				<p:row>
+					<p:column colspan="3" headerText="Polígono" />
+				</p:row>
+				<p:row>
+					<p:column headerText="Pto" width="10%"/>
+					<p:column headerText="Latitud"  width="25%"/>
+					<p:column headerText="Longitud" width="25%"/>
+				</p:row>
+			</p:columnGroup>
+			<p:column>
+				<p:inputText value="#{cc.attrs.lote.codigoIdentificacion}" style="width: 100px;"/>
+			</p:column>
+			<p:column>
+				<p:inputText value="#{cc.attrs.lote.nombre}" style="width: 100px;"/>
+			</p:column>
+			<p:column colspan="3" width="50%">
+				<p:dataTable
+						id="ListaPuntos"
+						rowIndexVar="index"
+						value="#{cc.attrs.lote.poligono}"
+						var="georeferenciacionvar"
+						emptyMessage="No se encuentran puntos de Georreferenciación cargados">
+					<p:column  width="5%">
+						#{index+1}
+					</p:column>
+					<p:column width="7%">
+						#{georeferenciacionvar.latitud}
+					</p:column>
+					<p:column width="7%">
+						#{georeferenciacionvar.longitud}
+					</p:column>
+				</p:dataTable>
+			</p:column>
+			<p:column>
+				<p:commandButton action="#{loteController.showDefinirPunto}" update="#{cc.attrs.formId}:#{cc.id}:definirPunto" value="Definir"/>
+				<br/>
+			</p:column>
+
+		</p:dataTable>
+
+		<p:panel id="definirPunto" visible="#{loteController.panelGoogleMap}">
+			<h:inputHidden value="#{loteController.superficieInicial}" id="superficieInicial" />
+			<h:inputHidden value="#{loteController.markers}" id="pointList" />
+			<h:inputHidden value="#{loteController.latitud}" id="initialLat" widgetVar="latitud"  />
+			<h:inputHidden value="#{loteController.longitud}" id="initialong" widgetVar="longitud" />
+
+			<p:gmap id="gmap"  center="#{loteController.latitud},#{loteController.longitud}" onPointClick="handlePointClick(event);"
+					zoom="15" type="HYBRID" style="width:100%;height:400px" model="#{loteController.polygonModel}" widgetVar="map">
+			</p:gmap>
+
+			<script type="text/javascript">
+				//<![CDATA[
+				var currentMarker = null;
+				var poly = null;
+				var initialState = true;
+				var gmap = null;
+				var markers = [];
+				var initialLat = null;
+				var initialLong = null;
+				var path = null;
+				var isFirstPoint = true;
+				var firstEvent = null;
+
+				function handlePointClick(event) {
+
+					if (initialState) {
+						var gmap = PF('map').getMap();
+						var polyOptions = {
+							strokeColor: '#000000',
+							strokeOpacity: 1.0,
+							strokeWeight: 3
+						};
+						poly = new google.maps.Polyline(polyOptions);
+						poly.setMap(gmap);
+						var path = poly.getPath();
+						initialLat = document.getElementById('riForm:panelLotesGeorreferenciacion:initialLat').value;
+						initialLong = document.getElementById('riForm:panelLotesGeorreferenciacion:initialong').value;
+					}
+					initialState = false;
+					if(currentMarker === null) {
+
+						currentMarker = new google.maps.Marker({
+							position:new google.maps.LatLng(event.latLng.lat(), event.latLng.lng())
+						});
+						markers.push(currentMarker);
+
+						if (isFirstPoint) {
+							firstEvent = event;
+							isFirstPoint = false;
+						}
+
+						PF('map').addOverlay(currentMarker);
+						currentMarker = null;
+
+						var path = poly.getPath();
+
+						// Because path is an MVCArray, we can simply append a new coordinate
+						// and it will automatically appear.
+						path.push(event.latLng);
+
+						// Add a new marker at the new plotted point on the polyline.
+
+					}
+				}
+
+
+				function removePolyline() {
+					if (!initialState) {
+						var polyOptions = {
+							strokeColor: '#000000',
+							strokeOpacity: 1.0,
+							strokeWeight: 3
+						};
+						poly.setMap(null);
+						poly = new google.maps.Polyline(polyOptions);
+						poly.setMap(gmap);
+						markers = [];
+						isFirstPoint = true;
+					}
+				}
+
+				function cerrarPoligono() {
+					if (!initialState) {
+						var lastMarker = new google.maps.Marker({
+							position:new google.maps.LatLng(firstEvent.latLng.lat(), firstEvent.latLng.lng())
+						});
+						markers.push(lastMarker);
+						PF('map').addOverlay(lastMarker);
+						var path = poly.getPath();
+						path.push(firstEvent.latLng);
+						//genero el area
+						// Define the LatLng coordinates for the polygon.
+						var gmap = PF('map').getMap();
+						var areaPoligono;
+						// Construct the polygon.
+						areaPoligono = new google.maps.Polygon({
+							paths: path,
+							strokeColor: '#000000',
+							strokeOpacity: 0.8,
+							strokeWeight: 3,
+							fillColor: '#00BB00',
+							fillOpacity: 0.35
+						});
+						areaPoligono.setMap(gmap);
+
+
+					}
+				}
+
+				function onOK() {
+					if (!initialState) {
+						var pointLists;
+						var first = true;
+						for (var i = 0; i < markers.length; i++) {
+							if (first) {
+								pointLists = '|' + markers[i].getPosition().lat() +  ',' + markers[i].getPosition().lng() ;
+								first = false;
+							} else {
+								pointLists = pointLists + '|' + markers[i].getPosition().lat() +  ',' + markers[i].getPosition().lng() ;
+							}
+						}
+						var area = google.maps.geometry.spherical.computeArea(poly.getPath());
+						document.getElementById('riForm:panelLotesGeorreferenciacion:pointList').value = pointLists;
+						document.getElementById('riForm:panelLotesGeorreferenciacion:superficieInicial').value = area;
+					}
+				}
+
+				//]]>
+			</script>
+
+			<br/>
+			<p:commandButton id="commandbuttonx" value="Aceptar"
+							 onclick="onOK()"
+							 actionListener="#{loteController.aceptar(event)}"
+							 update="#{cc.attrs.formId}:#{cc.id}:lotes,#{cc.attrs.formId}:#{cc.id}:definirPunto, #{cc.attrs.formId}:#{cc.id}:supTotalMap"
+					/>
+
+			<p:commandButton id="commandbuttonLimpiar" value="Limpiar"
+							 onclick="removePolyline();"
+							 actionListener="#{loteController.cleanGoogleMapModel(event)}"
+							 update="#{cc.attrs.formId}:#{cc.id}:definirPunto"
+					/>
+			<p:commandButton id="commandbuttonCancelar" value="Cancelar"
+							 actionListener="#{loteController.cancelar(event)}"
+							 update="#{cc.attrs.formId}:#{cc.id}:definirPunto"
+					/>
+			<p:commandButton id="commandbuttonCerrarLote" value="Cerrar Lote"
+							 onclick="cerrarPoligono();"
+					/>
+		</p:panel>
+
+		<br/>
+		<br/>
+			<script type="text/javascript">
+				//<![CDATA[
+				  function validaCamposArea(){
+						 if ((document.getElementById('riForm:panelLotesGeorreferenciacion:supTotal').value != null) && 
+						     (document.getElementById('riForm:panelLotesGeorreferenciacion:supSembrada').value != null) && 
+						     (document.getElementById('riForm:panelLotesGeorreferenciacion:supOtrasAct').value != null)){
+						  	 return true; 	
+						  }else{	 
+							 return false;
+						  }  
+					}
+				//]]>
+			</script>
+			<p:remoteCommand name="calculaArea" update="supNoProd" actionListener="#{loteController.calculateSupNoProd}" />
+			<p:panelGrid columns="3" layout="grid" styleClass="superficieTierra" >
+				<p:outputLabel value="La superficie marcada en el mapa es de" for="supTotalMap" />
+				<p:outputLabel value="#{loteController.supTotalMap}" id="supTotalMap" />&nbsp;Ha
+				<p:outputLabel value="Superficie Total del Lote" for="supTotal" />
+				<p:inputText styleClass="pf-input width-100" id="supTotal" value="#{cc.attrs.lote.supTotal}" onkeypress="validateNumericInput(event, this.text)" onblur="if(validaCamposArea()){calculaArea()}"/>&nbsp;Ha
+				<p:outputLabel value="Superficie Sembrada" for="supSembrada" />
+				<p:inputText styleClass="pf-input width-100" id="supSembrada" value="#{cc.attrs.lote.supSembrada}" onkeypress="validateNumericInput(event, this.text)" onblur="if(validaCamposArea()){calculaArea()}"/>&nbsp;Ha
+				<p:outputLabel for="supOtrasAct" value="Superficie Otras Actividades  " />
+				<p:inputText  styleClass="pf-input width-100" id="supOtrasAct" value="#{cc.attrs.lote.supOtrasAct}" onkeypress="validateNumericInput(event, this.text)" onblur="if(validaCamposArea()){calculaArea()}"/>&nbsp;Ha
+				<p:outputLabel for="supNoProd" value="Superficie No Productiva" />
+				<p:inputText styleClass="pf-input width-100"  id="supNoProd" value="#{cc.attrs.lote.supNoProd}" readonly="true"/>&nbsp;Ha
+				<h:outputLabel for="inLotePropietario" value="¿Es propietario?" />
+				<h:selectOneRadio id="inLotePropietario" value="#{loteController.panelRelacionTierra}" readonly="#{loteController.relacionTierraReadOnly}">
+					<f:selectItem itemValue="false" itemLabel="Sí" />
+					<f:selectItem itemValue="true" itemLabel="No" />
+					<p:ajax event="valueChange" update="panelRelacionTierra"/>
+				</h:selectOneRadio>
+				<p:outputLabel value="" />
+			</p:panelGrid>
+			<br/>
+			<p:panel header="Relacion con la tierra" id="panelRelacionTierra" visible="#{loteController.panelRelacionTierra}" styleClass="panelRelacionTierra">
+						<p:panelGrid columns="2" layout="grid" >
+							<h:outputLabel value="Instrumento" />
+							<h:selectOneRadio id="console" value="#{cc.attrs.relacionTierra.tipoInstrumento}" readonly="#{loteController.relacionTierraReadOnly}">
+								<f:selectItem itemValue="Contrato Arrendamiento" itemLabel="Contrato Arrendamiento" />
+								<f:selectItem itemValue="Contrato Aparceria" itemLabel="Contrato Aparcería"/>
+								<f:selectItem itemValue="Contrato Accidental" itemLabel="Contrato Accidental"/>
+								<f:selectItem itemValue="Otro" itemLabel="Otro"/>
+								<p:ajax update="inLoteInstrumentoOtro" process="@this"/>
+							</h:selectOneRadio>
+								<p></p>
+								<p:inputText styleClass="pf-input width-100" id="inLoteInstrumentoOtro" placeholder="Aclaratoria para el caso de Otro" readonly="#{cc.attrs.relacionTierra.tipoInstrumento ne 'Otro'}" value="#{cc.attrs.relacionTierra.infoInstrumento}" />
+						</p:panelGrid>
+						<p:panelGrid columns="2" layout="grid">
+							<h:outputLabel value="Locador / Propietario" />
+							<p:panelGrid columns="2" layout="grid" styleClass="subPanelPanelRelacionTierra">
+								<h:outputLabel for="inLoteLocadorPropietarioCuit" value="Cuit" />
+								<p:inputText styleClass="pf-input width-100" id="inLoteLocadorPropietarioCuit" value="#{cc.attrs.relacionTierra.cuitLocador}" readonly="#{loteController.relacionTierraReadOnly}" >
+									<p:ajax update="inLoteLocadorPropietarioNombre" listener="#{loteController.validaCuitLocadorByRest}" process="@form"></p:ajax>
+								</p:inputText>
+								<h:outputLabel for="inLoteLocadorPropietarioNombre" value="Nombre y Apellido / Razón Social" />
+								<p:inputText styleClass="pf-input width-100" id="inLoteLocadorPropietarioNombre" value="#{cc.attrs.relacionTierra.nombreLocador}" readonly="true" />
+							</p:panelGrid>
+						</p:panelGrid>
+						<p:panelGrid columns="2" layout="grid" >
+							<h:outputLabel value="Locatario / Tomador" />
+							<p:panelGrid columns="2" layout="grid" styleClass="subPanelPanelRelacionTierra">
+								<h:outputLabel for="inLoteLocadorTomadorCuit" value="Cuit" />
+								<p:inputText styleClass="pf-input width-100" id="inLoteLocadorTomadorCuit" value="#{cc.attrs.relacionTierra.cuitLocatario}" readonly="#{loteController.relacionTierraReadOnly}" >
+									<p:ajax update="inLoteLocadorTomadorNombre" listener="#{loteController.validaCuitLocatorioByRest}" process="@form"></p:ajax>
+								</p:inputText>
+								<h:outputLabel for="inLoteLocadorTomadorNombre"	value="Nombre y Apellido / Razón Social" />
+								<p:inputText styleClass="pf-input width-100" id="inLoteLocadorTomadorNombre" value="#{cc.attrs.relacionTierra.nombreLocatario}" readonly="true" />
+							</p:panelGrid>
+						</p:panelGrid>
+						<p:panelGrid columns="2" layout="grid" >
+							<h:outputLabel value="Plazo" />
+							<p:panelGrid columns="2" layout="grid"  styleClass="subPanelPanelRelacionTierra">
+								<p:outputLabel for="inLotePlazoMeses" value="Cantidad de Meses" />
+								<p:inputText id="inLotePlazoMeses" value="#{cc.attrs.relacionTierra.cantidadMeses}" readonly="#{loteController.relacionTierraReadOnly}" onkeypress="validateNumericInput(event, this.text)"/>
+								<p:outputLabel for="inLotePlazoDesde" value="Desde" />
+								<p:calendar  id="inLotePlazoDesde" styleClass="pf-input width-100"
+											 value="#{cc.attrs.relacionTierra.plazoFechaIni}"
+											 pattern="dd/MM/yy"											 
+											 readonly="#{loteController.relacionTierraReadOnly}">
+									<p:ajax event="dateSelect" update="inLotePlazoHasta" process="inLotePlazoMeses,@this" listener="#{loteController.calculateFechaFin}" />
+									<f:convertDateTime pattern="dd/MM/yy"/>
+								</p:calendar>
+
+								<p:outputLabel for="inLotePlazoHasta" value="Hasta" />
+								<h:outputText id="inLotePlazoHasta" styleClass="pf-input width-100" value="#{cc.attrs.relacionTierra.plazoFechaFin}">
+									<f:convertDateTime pattern="dd/MM/yy" />
+								</h:outputText>
+							</p:panelGrid>
+						</p:panelGrid>
+		</p:panel>
+		<p:panelGrid columns="3" layout="grid">
+			<p:commandButton  value="Aceptar"  actionListener="#{loteController.save()}" update="riForm">
+				<p:ajax update="irActividaaCommandButton"/>
+			</p:commandButton>
+			<p:commandButton  value="Volver"  inmediate="true" action="#{productorController.goEstablecimiento}" update="riForm"/>
+			<p:commandButton  value="Ir a Actividad" id="irActividaaCommandButton"
+							  disabled="#{loteController.disabledIrActividadButton}"
+							  actionListener="#{actividadController.selectActividad(cc.attrs.lote)}"
+							  action="#{productorController.goEditLote}" update="riForm"/>
+		</p:panelGrid>
+	</p:panel>
+</composite:implementation>
+</html>

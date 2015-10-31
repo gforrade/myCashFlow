@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+    <html xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:p="http://primefaces.org/ui"
+        xmlns:form="http://java.sun.com/jsf/composite/form"
+        xmlns:composite="http://java.sun.com/jsf/composite">
+        <composite:interface>
+            <composite:attribute name="productor" type="ar.com.datastar.magyp.rica.model.entities.Productor" />
+            <composite:attribute name="formId"  />
+            <composite:attribute name="renderedActionButton"  />
+            <composite:attribute name="registerButtonAction" method-signature="java.lang.String action()" />
+        </composite:interface>
+
+        <composite:implementation>
+            <p:panel header="Datos del productor" id="#{cc.id}" styleClass="panelProductor">
+                <p:panelGrid columns="4" layout="grid" >
+                    <h:outputLabel for="inProductorRazonSocial" value="Apellido y nombre / Razón social" />
+                    <p:inputText readonly="true" styleClass="pf-input width-100" id="inProductorRazonSocial" label="Apellido y nombre / Razón social" value="#{cc.attrs.productor.nombre}" />
+                    <h:outputLabel for="inProductorCuit" value="CUIT N°" styleClass="text-rigth" />
+                    <p:inputText readonly="true" styleClass="pf-input width-100" id="inProductorCuit" label="Cuit" value="#{cc.attrs.productor.cuit}" />
+                </p:panelGrid>
+                <br></br>
+                <p:panel  header="Información desde SENASA" id="verInfoSenasa">
+                
+             <p:panelGrid columns="2" layout="grid" styleClass="panelProductorDomicilio">
+                 <h:outputLabel for="inProductorDomicilioFiscal" value="Domicilio fiscal" />
+                 <p:inputText readonly="true" styleClass="pf-input width-100" id="inProductorDomicilioFiscal" label="Domicilio fiscal" value="#{cc.attrs.productor.direccionFiscal}" />
+                 <h:outputLabel for="inProductorDomicilioComercial" value="Domicilio comercial" />
+                 <p:inputText readonly="true" styleClass="pf-input width-100" id="inProductorDomicilioComercial" label="Domicilio comercial" value="#{cc.attrs.productor.direccionComercial}" />
+             </p:panelGrid>
+             <p:panelGrid columns="3" layout="grid" styleClass="panelProductorOtraInfo">
+                 <h:outputLabel for="inProductorCorreoElectronico" value="Correo electrónico" />
+                 <p:inputText readonly="true" styleClass="pf-input width-100" id="inProductorCorreoElectronico" label="Correo electrónico" value="#{cc.attrs.productor.email}" />
+                 <p></p>
+                 <h:outputLabel for="inProductorTelefonoFijo" value="Télefono Fijo" />
+                 <p:inputText readonly="true" styleClass="pf-input width-100" id="inProductorTelefonoFijo" label="Télefono Fijo" value="#{cc.attrs.productor.telefono}" />
+                 <p:spacer styleClass="pf-input width-100" width="250" height="10" rendered="#{cc.attrs.renderedActionButton  eq 'false' }"/>
+                 <p:commandButton value="Ver mas información" action="#{cc.attrs.registerButtonAction}" update="#{cc.attrs.formId}" rendered="#{cc.attrs.renderedActionButton  eq 'true' }"/>
+                 <h:outputLabel for="inProductorTelefonoMovil" value="Télefono Movil" />
+                 <p:inputText readonly="true" styleClass="pf-input width-100" id="inProductorTelefonoMovil" label="Télefono Movil" value="#{cc.attrs.productor.telefonoCelular}" />
+                 <p></p>
+             </p:panelGrid>
+                
+                </p:panel>
+            </p:panel>
+        </composite:implementation>
+</html>

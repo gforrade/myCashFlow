@@ -1,0 +1,55 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:f="http://java.sun.com/jsf/core"
+		xmlns:h="http://java.sun.com/jsf/html"
+		xmlns:ui="http://java.sun.com/jsf/facelets"
+		xmlns:p="http://primefaces.org/ui"
+		xmlns:form="http://java.sun.com/jsf/composite/form"
+		xmlns:model="http://java.sun.com/jsf/composite/model"
+		template="/WEB-INF/templates/layout.xhtml"
+		xmlns:composite="http://java.sun.com/jsf/composite">
+
+		<composite:interface>	
+			<composite:attribute name="lote" type="ar.com.datastar.magyp.rica.model.entities.Lote"/>	   
+		</composite:interface>
+		
+		<composite:implementation>
+		    <p:panelGrid columns="2" layout="grid" id="menuAtividades">
+				<f:facet name="header">
+				    <h:outputLabel value="ACTIVIDADES"/> <br /><br />
+					<p:graphicImage name="tipoActividades.png" library="images" />
+				</f:facet>
+				<h:commandLink action="#{actividadController.saveActividad(cc.attrs.lote)}" actionListener="#{productorController.addActividad()}"  update="riForm" styleClass="button-actividad">
+					<p:graphicImage name="botonRedondo.png" library="images" />
+					AGRICULTURA
+				</h:commandLink>
+				<h:commandLink action="..." styleClass="button-actividad">
+					<p:graphicImage name="botonRedondo.png" library="images" />
+					PISCICULTURA
+				</h:commandLink>
+				<h:commandLink action="..." styleClass="button-actividad">
+					<p:graphicImage name="botonRedondo.png" library="images" />
+					GANADERIA
+				</h:commandLink>
+				<h:commandLink action="..." styleClass="button-actividad">
+					<p:graphicImage name="botonRedondo.png" library="images" />
+					HORTICULTURA
+				</h:commandLink>
+				<h:commandLink action="..." styleClass="button-actividad">
+					<p:graphicImage name="botonRedondo.png" library="images" />
+					FRUTICULTURA
+				</h:commandLink>
+				<h:commandLink action="..." styleClass="button-actividad">
+					<p:graphicImage name="botonRedondo.png" library="images" />
+					TABACO
+				</h:commandLink>
+				<h:commandLink action="..." styleClass="button-actividad">
+					<p:graphicImage name="botonRedondo.png" library="images" />
+					VITIVINICULTURA
+				</h:commandLink>
+				<h:commandLink action="..." styleClass="button-actividad">
+					<p:graphicImage name="botonRedondo.png" library="images" />
+					ETC
+				</h:commandLink>
+			</p:panelGrid>
+		</composite:implementation>
+</ui:composition>

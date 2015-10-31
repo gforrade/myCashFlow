@@ -1,0 +1,136 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+	<html xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:h="http://java.sun.com/jsf/html"
+		xmlns:p="http://primefaces.org/ui"
+		xmlns:composite="http://java.sun.com/jsf/composite">
+
+		<!-- INTERFACE -->
+		<composite:interface>
+			<composite:attribute name="informacionOrganismo" type="java.util.List" />
+		</composite:interface>
+
+		<!-- IMPLEMENTATION -->
+		<composite:implementation>
+		<p:panel>             
+            <p:dataTable value="#{cc.attrs.informacionOrganismo}" var="informacionINV" emptyMessage="No se encuentra información de INV cargada">
+            
+                    <p:column headerText="Actividad Declarada" width="10%">
+                         #{informacionINV.actividadDeclarada}
+                    </p:column>
+                    <p:column headerText="Nro. Inscripcion" width="10%" rendered="false">
+                            #{informacionINV.nroInscripcion}
+                    </p:column>
+                    <p:column headerText="Razón Social" width="10%">
+                            #{informacionINV.razonSocial}
+                    </p:column>
+                     <p:column headerText="Domicilio Registro" width="10%">
+                            #{informacionINV.domicilioRegistro}
+                    </p:column>
+                     <p:column headerText="Provincia Registro" width="10%">
+                            #{informacionINV.provinciaRegistro}
+                    </p:column>
+                    <p:column headerText="Departamento Registro" width="10%">
+                            #{informacionINV.deptoRegistro}
+                    </p:column>                                                          
+                    <p:column headerText="Localidad Registro" width="10%">
+                            #{informacionINV.localidadRegistro}
+                    </p:column>
+                    <p:column headerText="Telefono Registro" width="10%">
+                            #{informacionINV.telefonoRegistro}
+                    </p:column>
+                    <p:column headerText="Email Registro" width="10%">
+                            #{informacionINV.emailRegistro}
+                    </p:column>
+                    <p:column headerText="Geo Latitud Registro" width="10%">
+                            #{informacionINV.geoLatitudRegistro}
+                    </p:column>
+                    <p:column headerText="Geo Longitud Registro" width="10%">
+                            #{informacionINV.geoLongitudRegistro}
+                    </p:column>
+                                        
+<!--                                                  	
+                    <p:column headerText="Codigo tipo de Documento" width="10%">
+                         #{informacionINV.codTipoDocumento}
+                    </p:column>
+                    <p:column headerText="Tipo de Documento" width="10%">
+                         #{informacionINV.tipoDocumento}
+                    </p:column>   
+                    <p:column headerText="Numero de Documento" width="10%">
+                         #{informacionINV.numDocumento}
+                    </p:column> 
+                    <p:column headerText="Codigo de Actividad Declarada" width="10%">
+                        #{informacionINV.codActividadDeclarada}
+                    </p:column>
+                    <p:column headerText="Domicilio Fiscal" width="10%">
+                            #{informacionINV.domicilioFiscal}
+                    </p:column> 
+                    <p:column headerText="Codigo de Provincia Fiscal" width="10%">
+                            #{informacionINV.codProvinciaFiscal}
+                    </p:column> 
+                    <p:column headerText="Provincia" width="10%">
+                            #{informacionINV.provinciaFiscal}
+                    </p:column> 
+
+                    <p:column headerText="Codigo de Departamento" width="10%">
+                            #{informacionINV.codDeptoFiscal}
+                    </p:column> 
+                    <p:column headerText="Departamento Fiscal" width="10%">
+                            #{informacionINV.deptoFiscal}
+                    </p:column> 
+                    <p:column headerText="Codigo de Localidad Fiscal" width="10%">
+                            #{informacionINV.codLocalidadFiscal}
+                    </p:column>
+                    <p:column headerText="Localidad Fiscal" width="10%">
+                            #{informacionINV.localidadFiscal}
+                    </p:column>
+                    <p:column headerText="Codigo Postal Fiscal" width="10%">
+                            #{informacionINV.codPostalFiscal}
+                    </p:column>
+
+                    <p:column headerText="Telefono Fiscal" width="10%">
+                            #{informacionINV.telefonoFiscal}
+                    </p:column>  
+                    <p:column headerText="Email Fiscal" width="10%">
+                            #{informacionINV.emailFiscal}
+                    </p:column>
+
+                    <p:column headerText="Codigo de Provincia Registro" width="10%">
+                            #{informacionINV.codProvinciaRegistro}
+                    </p:column>
+                    <p:column headerText="Provincia Registro" width="10%">
+                            #{informacionINV.provinciaRegistro}
+                    </p:column>
+
+                    <p:column headerText="Codigo de Departamento Registro" width="10%">
+                            #{informacionINV.codDeptoRegistro}
+                    </p:column>
+
+                    <p:column headerText="Codigo de Localidad Registro" width="10%">
+                            #{informacionINV.codLocalidadRegistro}
+                    </p:column>
+
+                    <p:column headerText="Codigo Postal Registro" width="10%">
+                            #{informacionINV.codPostalRegistro}
+                    </p:column>
+
+                    <p:column headerText="Geo Altura Registro" width="10%">
+                            #{informacionINV.geoAlturaRegistro}
+                    </p:column>
+
+                    <p:column headerText="Coordenada X" width="10%">
+                            #{informacionINV.coordenadaX}
+                    </p:column>
+                    <p:column headerText="Coordenada Y" width="10%">
+                            #{informacionINV.coordenadaY}
+                    </p:column>
+-->
+           
+           </p:dataTable>                    
+ 
+     </p:panel>
+		
+		</composite:implementation>
+
+</html>

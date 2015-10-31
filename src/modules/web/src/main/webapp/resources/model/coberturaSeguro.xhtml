@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"   
+    xmlns:p="http://primefaces.org/ui" 
+    xmlns:composite="http://java.sun.com/jsf/composite">
+
+    <!-- INTERFACE -->
+    <composite:interface>
+    	<composite:attribute name="coberturaSeguro" type="ar.com.datastar.magyp.rica.model.entities.CoberturaSeguro" />    	
+    	<composite:attribute name="formId"  />
+    </composite:interface>
+          
+    <!-- IMPLEMENTATION -->
+    <composite:implementation>    	
+    		<p:panel header="Cobertura de Seguro" id="#{cc.id}" styleClass="panelCobertura">
+   				 <p:panelGrid id="panelSemillaPoseeCobertura" columns="2" layout="grid">
+					<h:outputLabel value="¿Posee cobertura de seguros?" />
+					<h:selectOneRadio value="#{actividadController.tieneCobertura}">
+						<f:selectItem itemValue="true" itemLabel="Sí" />
+						<f:selectItem itemValue="false" itemLabel="No" />
+						<p:ajax update="panelCobertura, panelSemillaPoliza, panelSemillaPolizaVigencia" />
+					</h:selectOneRadio>
+				</p:panelGrid>				
+				<p:outputPanel id="panelCobertura" autoUpdate="true">				
+						<p:panelGrid id="panelSemillaPoliza" columns="2" layout="grid" rendered="#{actividadController.tieneCobertura eq 'true'}">
+					   		<h:outputLabel for="panelSemillaPolizaCodigo" value="Póliza de seguro"  />		  		
+							<p:inputText id="panelSemillaPolizaCodigo" value="#{cc.attrs.coberturaSeguro.poliza}" />
+							<h:outputLabel for="panelSemillaCompaniaSeguro" value="Compañia de seguros" />		  		
+							<p:inputText id="panelSemillaCompaniaSeguro" value="#{cc.attrs.coberturaSeguro.compania}" />
+							<h:outputLabel for="panelSemillaCobertura" value="Cobertura" />		  		
+							<p:inputText id="panelSemillaCobertura" value="#{cc.attrs.coberturaSeguro.cobertura}" />																
+						</p:panelGrid>
+
+						<p:panelGrid id="panelSemillaPolizaVigencia" columns="2" layout="grid" rendered="#{actividadController.tieneCobertura eq 'true'}">
+							<h:outputLabel value="Vigencia" />
+							<h:outputLabel value=" " />
+							<p:panelGrid id="panelSemillaPolizaVigenciaFechas" columns="2" layout="grid">
+								<p:outputLabel for="panelSemillaPolizaDesde" value="Desde" />
+								<p:calendar id="panelSemillaPolizaDesde" value="#{cc.attrs.coberturaSeguro.vigenciaDesde}" pattern="dd/MM/yy">
+								   <p:ajax  event="dateSelect" update="panelSemillaPolizaDesde" process="@form" listener="#{actividadController.validateFecha()}" />
+								</p:calendar>   
+								<p:outputLabel for="panelSemillaPolizaHasta" value="Hasta" />
+								<p:calendar id="panelSemillaPolizaHasta" value="#{cc.attrs.coberturaSeguro.vigenciaHasta}" pattern="dd/MM/yy">
+								   <p:ajax  event="dateSelect" update="panelSemillaPolizaHasta" process="@form" listener="#{actividadController.validateFecha()}" />
+								</p:calendar>
+							</p:panelGrid> 
+						</p:panelGrid>						   
+						<p:panelGrid id="panelSemillaBotones" columns="3" layout="grid">
+							<p:commandButton value="Guardar" action="#{actividadController.saveCobertura()}"   update="#{cc.attrs.formId}" />																									
+							<p:commandButton value="Cancelar" immediate="true" action="#{productorController.goEditLote()}" update="#{cc.attrs.formId}"/>							
+						</p:panelGrid>
+				</p:outputPanel>
+			</p:panel>		
+    </composite:implementation>    
+
+</html>

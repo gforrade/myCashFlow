@@ -1,0 +1,111 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+	<html xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:h="http://java.sun.com/jsf/html"
+		xmlns:f="http://java.sun.com/jsf/core"
+		xmlns:p="http://primefaces.org/ui"
+		xmlns:form="http://java.sun.com/jsf/composite/form"
+		xmlns:composite="http://java.sun.com/jsf/composite">
+		<composite:interface>
+			<composite:attribute name="lote" type="ar.com.datastar.magyp.rica.model.entities.Lote"/>
+			<composite:attribute name="establecimiento"	type="ar.com.datastar.magyp.rica.model.entities.Establecimiento" />
+			<composite:attribute name="verRelacionTierra" type="ar.com.datastar.magyp.rica.model.entities.RelacionTierra"></composite:attribute>
+			<composite:attribute name="formId"/>
+		</composite:interface>
+
+		<composite:implementation>
+			<p:panel header="Lote por Establecimiento" id="#{cc.attrs.formId}">
+				<p:panelGrid id="panelLotesInfo" columns="1">
+					<p:row>
+						<p:column>
+							<p:panelGrid id="panelLotesEstablecimientoInfo" columns="2" layout="grid" styleClass="panelLoteEstablecimiento">
+								<h:outputLabel for="inLotesCodigoEstablecimiento" value="Código Único RI del Establecimiento"  rendered="false"/>
+								<p:inputText styleClass="pf-input width-100" id="inLotesCodigoEstablecimiento" label="Código Único RI del Establecimiento" value="#{cc.attrs.establecimiento.codigoIdentificacion.ri}" readonly="true" rendered="false"/>
+								<h:outputLabel for="inLotesNombreEstablecimiento" value="Nombre del Establecimiento" />
+								<p:inputText styleClass="pf-input width-100" id="inLotesNombreEstablecimiento" label="Nombre del Establecimiento" value="#{cc.attrs.establecimiento.nombre}" readonly="true" />
+							</p:panelGrid>
+						</p:column>
+					</p:row>
+			    <p:panel  header="Relacion con la tierra" id="verRelacionConLaTierraPanel" >
+								<p:panelGrid columns="2" layout="grid" rendered="#{loteController.hasRelacionTierra(cc.attrs.lote.id) eq false}">
+									<h:outputLabel for="inVerLotePropietarioSI" value="¿Es propietario?" />
+									<p:outputLabel id="inVerLotePropietarioSI" value="SI" readonly="true"></p:outputLabel>
+								</p:panelGrid>								
+								<p:panelGrid columns="2" layout="grid" rendered="#{loteController.hasRelacionTierra(cc.attrs.lote.id)}">
+									<h:outputLabel for="inVerLotePropietarioNO" value="¿Es propietario?" />
+									<p:outputLabel id="inVerLotePropietarioNO" value="NO" readonly="true"></p:outputLabel>
+								</p:panelGrid>
+									<p:panelGrid columns="2" layout="grid" rendered="#{loteController.hasRelacionTierra(cc.attrs.lote.id)}" >
+										<h:outputLabel for="inVerInstrumento" value="Instrumento" />
+										<p:outputLabel id="inVerInstrumento" value="#{cc.attrs.verRelacionTierra.tipoInstrumento}" readonly="true"></p:outputLabel>
+								    </p:panelGrid>
+									<p:panelGrid id="panelVerLoteRelTierraLocatorioPropietarioInfoTest" columns="2" layout="grid" rendered="#{loteController.hasRelacionTierra(cc.attrs.lote.id)}">
+										<h:outputLabel value="Locador / Propietario" />
+										<p:panelGrid id="panelVerLoteRelTierraLocadorPropietario" columns="2" layout="grid">
+											<h:outputLabel	for="inVerLoteLocadorPropietarioCuit" value="Cuit" />
+											<p:outputLabel styleClass="pf-input width-100" id="inVerLoteLocadorPropietarioCuit" value="#{cc.attrs.verRelacionTierra.cuitLocador}" readonly="true" />
+											<h:outputLabel for="inVerLoteLocadorPropietarioNombre" value="Nombre y Apellido / Razón Social" />
+											<p:outputLabel styleClass="pf-input width-100" id="inVerLoteLocadorPropietarioNombre" value="#{cc.attrs.verRelacionTierra.nombreLocador}" readonly="true" />
+										</p:panelGrid>
+									</p:panelGrid>
+									<p:panelGrid id="paneVerlLoteRelTierraLocatorioTomadorInfo" columns="2" layout="grid" rendered="#{loteController.hasRelacionTierra(cc.attrs.lote.id)}">
+										<h:outputLabel value="Locatario / Tomador" />
+										<p:panelGrid id="panelVerLoteRelTierraLocadorTomador" columns="2" layout="grid">
+											<h:outputLabel for="inVerLoteLocadorTomadorCuit" value="Cuit" />
+											<p:outputLabel styleClass="pf-input width-100" id="inVerLoteLocadorTomadorCuit" value="#{cc.attrs.verRelacionTierra.cuitLocatario}" readonly="true" />
+											<h:outputLabel for="inVerLoteLocadorTomadorNombre"	value="Nombre y Apellido / Razón Social" />
+											<p:outputLabel styleClass="pf-input width-100" id="inVerLoteLocadorTomadorNombre" value="#{cc.attrs.verRelacionTierra.nombreLocatario}" readonly="true" />
+										</p:panelGrid>
+									</p:panelGrid>
+									<p:panelGrid id="panelVerLoteRelTierraPlazoInfo" columns="2" layout="grid" rendered="#{loteController.hasRelacionTierra(cc.attrs.lote.id)}">
+										<h:outputLabel value="Plazo" />
+										<p:panelGrid id="panelVerLoteRelTierraPlazo" columns="2" layout="grid">
+											<p:outputLabel for="inVerLotePlazoMeses" value="Cantidad de Meses" />
+											<p:outputLabel id="inVerLotePlazoMeses" value="#{cc.attrs.verRelacionTierra.cantidadMeses}" readonly="true">
+										</p:outputLabel>
+										<p:outputLabel for="inVerLotePlazoDesde" value="Desde" />
+											<h:outputText id="inVerLotePlazoDesde" value="#{cc.attrs.verRelacionTierra.plazoFechaIni}" readonly="true">
+												<f:convertDateTime pattern="dd/MM/yy" />
+											</h:outputText>				
+											<p:outputLabel for="inVerLotePlazoHasta" value="Hasta" />
+											<h:outputText id="inVerLotePlazoHasta" value="#{cc.attrs.verRelacionTierra.plazoFechaFin}" readonly="true">
+												<f:convertDateTime pattern="dd/MM/yy" />
+											</h:outputText>
+										</p:panelGrid>
+									</p:panelGrid>
+							</p:panel>					
+					<p:row>
+						<p:column>
+							<p:dataTable value="#{cc.attrs.lote}"
+								var="lote">
+								<p:column
+									headerText="Código identificación" width="20%">
+									#{lote.codigoIdentificacion}
+								</p:column>
+								<p:column
+									headerText="Nombre del Lote">
+									#{lote.nombre}
+								</p:column>
+								<p:column headerText="Ver más información" width="20%" rendered="false">
+									<p:commandButton value="Ver"
+										action="#{registroIntegradoController.showEstablecimiento(address)}"
+										update="riForm" />
+								</p:column>
+								<p:column  headerText="Agregar Actividad" width="20%" rendered="#{!loteController.hasActividad()}">
+									<p:commandButton value="Agregar" action="#{actividadController.saveActividad(lote)}" update="riForm" />
+								</p:column>
+								<p:column  headerText="Eliminar Actividad" width="20%" rendered="#{loteController.hasActividad()}">
+									<p:commandButton value="Eliminar" action="#{actividadController.remove}" update="riForm" actionListener="#{productorController.goEditLote()}">
+										<p:confirm header="Confirmacion" message="Esta Seguro que desea borrar el registro?" icon="ui-icon-alert" />
+									</p:commandButton>
+									<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+										<p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+										<p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+									</p:confirmDialog>
+								</p:column>
+							</p:dataTable>
+						</p:column>
+					</p:row>
+				</p:panelGrid>
+			</p:panel>			
+		</composite:implementation>
+</html>

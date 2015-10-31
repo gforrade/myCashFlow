@@ -1,0 +1,69 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"    
+    xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+    xmlns:composite="http://java.sun.com/jsf/composite">
+
+    <!-- INTERFACE -->
+    <composite:interface>
+    <composite:attribute name="lotes" type="java.util.List" />
+    </composite:interface>
+          
+    <!-- IMPLEMENTATION -->
+    <composite:implementation>
+    
+    <p:panel header="Lotes por Establecimientos" id="#{cc.id}">
+				<h:form id="loteForm">
+					<p:dataTable
+							id="lotes"
+						value="#{cc.attrs.lotes}"
+						var="lote">
+						<p:columnGroup type="header">
+							<p:row>
+								<p:column rowspan="3" headerText="Código de Identificación" />
+								<p:column rowspan="3" headerText="Nombre del Lote" />
+								<p:column colspan="3" headerText="Georreferenciación" />
+								
+							</p:row>
+							<p:row>
+								<p:column colspan="3" headerText="Polígono" />
+							</p:row>
+							<p:row>
+								<p:column headerText="Pto" />
+								<p:column headerText="Latitud" />
+								<p:column headerText="Longitud" />
+							</p:row>
+						</p:columnGroup>
+						<p:column>
+							#{lote.codigoIdentificacion}
+						</p:column>
+						<p:column>
+							#{lote.nombre}
+						</p:column>
+						<p:column colspan="3">
+							<p:dataTable
+								id="ListaPuntos"
+								rowIndexVar="index"
+								value="#{lote.poligono}"
+								var="georeferenciacionvar">
+								<p:column>
+									#{index+1}
+								</p:column>
+								<p:column>
+									#{georeferenciacionvar.latitud}
+								</p:column>
+								<p:column>
+									#{georeferenciacionvar.longitud}
+								</p:column>
+							</p:dataTable>
+						</p:column>						
+					</p:dataTable>				
+
+				</h:form>
+			</p:panel>
+    </composite:implementation>    
+
+</html>
