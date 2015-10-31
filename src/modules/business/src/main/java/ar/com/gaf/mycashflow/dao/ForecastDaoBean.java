@@ -15,7 +15,7 @@ import java.util.List;
 
 /**
  * Created by gforrade on 7/12/15.
- * Copyright (c) 2015, GAF S.A.
+ * Copyright (c) 2015, GAF S.A.version 2 Git hub
  */
 @Log4j
 @Stateless
